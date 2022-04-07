@@ -5,8 +5,11 @@
 
 ##########-------------- MixFormer-22k-----------------##########
 ### LaSOT test and evaluation
-python tracking/test.py mixformer_online baseline --dataset lasot --threads 32 --num_gpus 8 --params__model mixformer_online_22k.pth.tar --params__search_area_scale 4.55
-python tracking/analysis_results.py --dataset_name lasot --tracker_param baseline
+rm -r ./nohup.out
+export PATH="/home/wenrui/tools/gcc-7.5.0/bin:/home/wenrui/tools/gcc-7.5.0/lib64:$PATH"
+
+nohup /home/wenrui/anaconda3/envs/mixformer/bin/python -u tracking/test.py mixformer_online baseline --dataset lasot --threads 16 --num_gpus 2 --params__model mixformer_online/checkpoints/train/mixformer_online/baseline/MixFormerOnlineScore_ep0040.pth.tar --params__search_area_scale 4.55 &
+#nohup /home/wenrui/anaconda3/envs/mixformer/bin/python -u tracking/analysis_results.py --dataset_name lasot --tracker_param baseline &
 
 ### TrackingNet test and pack
 #python tracking/test.py mixformer_online baseline --dataset trackingnet --threads 32 --num_gpus 8 --params__model mixformer_online_22k.pth.tar --params__search_area_scale 4.5

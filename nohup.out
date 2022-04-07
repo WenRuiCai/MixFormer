@@ -1,0 +1,2027 @@
+{'model': 'mixformer_online/checkpoints/train/mixformer_online/baseline/MixFormerOnlineScore_ep0040.pth.tar', 'search_area_scale': 4.55, 'max_score_decay': 1.0, 'vis_attn': 0}
+test config:  {'MODEL': {'HEAD_TYPE': 'CORNER', 'HIDDEN_DIM': 384, 'NUM_OBJECT_QUERIES': 1, 'POSITION_EMBEDDING': 'sine', 'PREDICT_MASK': False, 'BACKBONE': {'PRETRAINED': True, 'PRETRAINED_PATH': '', 'INIT': 'trunc_norm', 'NUM_STAGES': 3, 'PATCH_SIZE': [7, 3, 3], 'PATCH_STRIDE': [4, 2, 2], 'PATCH_PADDING': [2, 1, 1], 'DIM_EMBED': [64, 192, 384], 'NUM_HEADS': [1, 3, 6], 'DEPTH': [1, 4, 16], 'MLP_RATIO': [4.0, 4.0, 4.0], 'ATTN_DROP_RATE': [0.0, 0.0, 0.0], 'DROP_RATE': [0.0, 0.0, 0.0], 'DROP_PATH_RATE': [0.0, 0.0, 0.1], 'QKV_BIAS': [True, True, True], 'CLS_TOKEN': [False, False, False], 'POS_EMBED': [False, False, False], 'QKV_PROJ_METHOD': ['dw_bn', 'dw_bn', 'dw_bn'], 'KERNEL_QKV': [3, 3, 3], 'PADDING_KV': [1, 1, 1], 'STRIDE_KV': [2, 2, 2], 'PADDING_Q': [1, 1, 1], 'STRIDE_Q': [1, 1, 1], 'FREEZE_BN': True}, 'PRETRAINED_STAGE1': True, 'NLAYER_HEAD': 3, 'HEAD_FREEZE_BN': True}, 'TRAIN': {'TRAIN_SCORE': True, 'SCORE_WEIGHT': 1.0, 'LR': 0.0001, 'WEIGHT_DECAY': 0.0001, 'EPOCH': 50, 'LR_DROP_EPOCH': 20, 'BATCH_SIZE': 72, 'NUM_WORKER': 36, 'OPTIMIZER': 'ADAMW', 'BACKBONE_MULTIPLIER': 0.1, 'GIOU_WEIGHT': 2.0, 'L1_WEIGHT': 5.0, 'DEEP_SUPERVISION': False, 'FREEZE_STAGE0': False, 'PRINT_INTERVAL': 50, 'VAL_EPOCH_INTERVAL': 5, 'GRAD_CLIP_NORM': 0.1, 'SCHEDULER': {'TYPE': 'step', 'DECAY_RATE': 0.1}}, 'DATA': {'SAMPLER_MODE': 'trident_pro', 'MEAN': [0.485, 0.456, 0.406], 'STD': [0.229, 0.224, 0.225], 'MAX_SAMPLE_INTERVAL': [200], 'TRAIN': {'DATASETS_NAME': ['GOT10K_vottrain', 'LASOT', 'COCO17', 'TRACKINGNET'], 'DATASETS_RATIO': [1, 1, 1, 1], 'SAMPLE_PER_EPOCH': 60000}, 'VAL': {'DATASETS_NAME': ['GOT10K_votval'], 'DATASETS_RATIO': [1], 'SAMPLE_PER_EPOCH': 10000}, 'SEARCH': {'SIZE': 320, 'FACTOR': 5.0, 'CENTER_JITTER': 4.5, 'SCALE_JITTER': 0.5}, 'TEMPLATE': {'SIZE': 128, 'FACTOR': 2.0, 'NUMBER': 2, 'CENTER_JITTER': 0, 'SCALE_JITTER': 0}}, 'TEST': {'TEMPLATE_FACTOR': 2.0, 'TEMPLATE_SIZE': 128, 'SEARCH_FACTOR': 5.0, 'SEARCH_SIZE': 320, 'EPOCH': 40, 'UPDATE_INTERVALS': {'LASOT': [200], 'GOT10K_TEST': [10], 'TRACKINGNET': [25], 'VOT20': [10], 'VOT20LT': [200], 'OTB': [6], 'UAV': [200]}, 'ONLINE_SIZES': {'LASOT': [2], 'GOT10K_TEST': [2], 'TRACKINGNET': [1], 'VOT20': [5], 'VOT20LT': [3], 'OTB': [3], 'UAV': [1]}}}
+search_area_scale: 4.55
+Evaluating    1 trackers on   280 sequences
+Tracker: mixformer_online baseline None ,  Sequence: cattle-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /home/wenrui/.cache/torch_extensions/_prroi_pooling/build.ninja...
+Building extension module _prroi_pooling...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Tracker: mixformer_online baseline None ,  Sequence: bus-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /home/wenrui/.cache/torch_extensions/_prroi_pooling/build.ninja...
+Building extension module _prroi_pooling...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Tracker: mixformer_online baseline None ,  Sequence: bottle-14
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /home/wenrui/.cache/torch_extensions/_prroi_pooling/build.ninja...
+Building extension module _prroi_pooling...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Tracker: mixformer_online baseline None ,  Sequence: spider-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /home/wenrui/.cache/torch_extensions/_prroi_pooling/build.ninja...
+Building extension module _prroi_pooling...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Tracker: mixformer_online baseline None ,  Sequence: surfboard-12
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /home/wenrui/.cache/torch_extensions/_prroi_pooling/build.ninja...
+Building extension module _prroi_pooling...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Tracker: mixformer_online baseline None ,  Sequence: bicycle-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /home/wenrui/.cache/torch_extensions/_prroi_pooling/build.ninja...
+Building extension module _prroi_pooling...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Tracker: mixformer_online baseline None ,  Sequence: coin-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Loading extension module _prroi_pooling...
+Tracker: mixformer_online baseline None ,  Sequence: deer-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Loading extension module _prroi_pooling...
+Loading extension module _prroi_pooling...
+Tracker: mixformer_online baseline None ,  Sequence: dog-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Loading extension module _prroi_pooling...
+Tracker: mixformer_online baseline None ,  Sequence: basketball-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Loading extension module _prroi_pooling...
+Tracker: mixformer_online baseline None ,  Sequence: bear-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Loading extension module _prroi_pooling...
+Loading extension module _prroi_pooling...
+Tracker: mixformer_online baseline None ,  Sequence: book-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Loading extension module _prroi_pooling...
+Loading extension module _prroi_pooling...
+Tracker: mixformer_online baseline None ,  Sequence: cup-4
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Loading extension module _prroi_pooling...
+Tracker: mixformer_online baseline None ,  Sequence: cat-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Loading extension module _prroi_pooling...
+Loading extension module _prroi_pooling...
+FPS: 3.606084620321181
+create tracking result dir: /home/wenrui/MixFormer/test/tracking_results/mixformer_online/baseline
+Tracker: mixformer_online baseline None ,  Sequence: crab-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Tracker: mixformer_online baseline None ,  Sequence: airplane-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Loading extension module _prroi_pooling...
+FPS: 3.5339238258792665
+Tracker: mixformer_online baseline None ,  Sequence: cattle-12
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Loading extension module _prroi_pooling...
+FPS: 4.2869301471586105
+Tracker: mixformer_online baseline None ,  Sequence: deer-14
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.5101777769555285
+Tracker: mixformer_online baseline None ,  Sequence: cup-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.217366348163773
+Tracker: mixformer_online baseline None ,  Sequence: basketball-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.4990682672385995
+Tracker: mixformer_online baseline None ,  Sequence: guitar-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.6351130021873317
+Tracker: mixformer_online baseline None ,  Sequence: dog-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.417728206078632
+Tracker: mixformer_online baseline None ,  Sequence: bear-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.412762451569932
+Tracker: mixformer_online baseline None ,  Sequence: car-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.313195632230762
+Tracker: mixformer_online baseline None ,  Sequence: surfboard-4
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.4970499883903825
+Tracker: mixformer_online baseline None ,  Sequence: crab-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.858499984164026
+Tracker: mixformer_online baseline None ,  Sequence: book-11
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.279599790436761
+Tracker: mixformer_online baseline None ,  Sequence: cattle-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Tracker: mixformer_online baseline None ,  Sequence: boat-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Loading extension module _prroi_pooling...
+FPS: 3.4859494029809475
+Tracker: mixformer_online baseline None ,  Sequence: bird-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.735393635456232
+Tracker: mixformer_online baseline None ,  Sequence: cup-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.6682103795288534
+Tracker: mixformer_online baseline None ,  Sequence: basketball-11
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.651012799885853
+Tracker: mixformer_online baseline None ,  Sequence: guitar-8
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.506813767026552
+Tracker: mixformer_online baseline None ,  Sequence: dog-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.6674426749149522
+Tracker: mixformer_online baseline None ,  Sequence: crab-12
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.166166983316404
+Tracker: mixformer_online baseline None ,  Sequence: bicycle-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.364130594379023
+Tracker: mixformer_online baseline None ,  Sequence: cat-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.860589388226752
+Tracker: mixformer_online baseline None ,  Sequence: spider-14
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.5814002220801497
+Tracker: mixformer_online baseline None ,  Sequence: boat-4
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.201137814549352
+Tracker: mixformer_online baseline None ,  Sequence: car-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.129158912211439
+Tracker: mixformer_online baseline None ,  Sequence: guitar-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.6837775413805263
+Tracker: mixformer_online baseline None ,  Sequence: crab-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.108665747690996
+Tracker: mixformer_online baseline None ,  Sequence: book-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.256059294128855
+Tracker: mixformer_online baseline None ,  Sequence: surfboard-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.7464309600730723
+Tracker: mixformer_online baseline None ,  Sequence: bird-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+Loading extension module _prroi_pooling...
+FPS: 4.187251841368077
+Tracker: mixformer_online baseline None ,  Sequence: spider-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.0286695544794053
+Tracker: mixformer_online baseline None ,  Sequence: cat-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9625676552666347
+Tracker: mixformer_online baseline None ,  Sequence: guitar-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.6017911149304824
+Tracker: mixformer_online baseline None ,  Sequence: airplane-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.6987932742853964
+Tracker: mixformer_online baseline None ,  Sequence: boat-12
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.7010721204025687
+Tracker: mixformer_online baseline None ,  Sequence: bicycle-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.6965713632475405
+Tracker: mixformer_online baseline None ,  Sequence: deer-4
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.9919594188785648
+Tracker: mixformer_online baseline None ,  Sequence: bird-15
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.495597652012014
+Tracker: mixformer_online baseline None ,  Sequence: surfboard-8
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.9513485260160737
+Tracker: mixformer_online baseline None ,  Sequence: cat-20
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.1062656360999354
+Tracker: mixformer_online baseline None ,  Sequence: bottle-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.8473306241710477
+Tracker: mixformer_online baseline None ,  Sequence: dog-15
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.1568338039529396
+Tracker: mixformer_online baseline None ,  Sequence: boat-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.939302759014375
+Tracker: mixformer_online baseline None ,  Sequence: pig-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.4638432209516266
+Tracker: mixformer_online baseline None ,  Sequence: airplane-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.6783044484761023
+Tracker: mixformer_online baseline None ,  Sequence: rubicCube-14
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.342173164775687
+Tracker: mixformer_online baseline None ,  Sequence: cup-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9094341343550383
+Tracker: mixformer_online baseline None ,  Sequence: swing-20
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.782766557824605
+Tracker: mixformer_online baseline None ,  Sequence: deer-8
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.1966457643568593
+Tracker: mixformer_online baseline None ,  Sequence: car-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.238336702202022
+Tracker: mixformer_online baseline None ,  Sequence: bus-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.957018887709887
+Tracker: mixformer_online baseline None ,  Sequence: bottle-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.097523128356759
+Tracker: mixformer_online baseline None ,  Sequence: book-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9997359230092338
+Tracker: mixformer_online baseline None ,  Sequence: pig-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.598630942846786
+Tracker: mixformer_online baseline None ,  Sequence: person-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.8316047742942088
+Tracker: mixformer_online baseline None ,  Sequence: cattle-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.0168042580300285
+Tracker: mixformer_online baseline None ,  Sequence: bicycle-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.078848495888973
+Tracker: mixformer_online baseline None ,  Sequence: pool-12
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.06130655534897
+Tracker: mixformer_online baseline None ,  Sequence: rabbit-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.093742555968035
+Tracker: mixformer_online baseline None ,  Sequence: airplane-15
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.7938268393436503
+Tracker: mixformer_online baseline None ,  Sequence: rubicCube-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.059378174007383
+Tracker: mixformer_online baseline None ,  Sequence: racing-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.7366118425169135
+Tracker: mixformer_online baseline None ,  Sequence: bus-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.7964178340192425
+Tracker: mixformer_online baseline None ,  Sequence: pool-15
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.245029171449218
+Tracker: mixformer_online baseline None ,  Sequence: drone-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.450314584890642
+Tracker: mixformer_online baseline None ,  Sequence: spider-20
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.037511211414573
+Tracker: mixformer_online baseline None ,  Sequence: car-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.613634096537752
+Tracker: mixformer_online baseline None ,  Sequence: basketball-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.8237670476314256
+Tracker: mixformer_online baseline None ,  Sequence: bear-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.83693673227466
+Tracker: mixformer_online baseline None ,  Sequence: bottle-12
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.3065666650098855
+Tracker: mixformer_online baseline None ,  Sequence: rabbit-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.11625751792931
+Tracker: mixformer_online baseline None ,  Sequence: pig-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.225923006967776
+Tracker: mixformer_online baseline None ,  Sequence: drone-15
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.1351689047010525
+Tracker: mixformer_online baseline None ,  Sequence: sheep-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.051505823822293
+Tracker: mixformer_online baseline None ,  Sequence: coin-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.8574231141078785
+Tracker: mixformer_online baseline None ,  Sequence: pool-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.8583348702130205
+Tracker: mixformer_online baseline None ,  Sequence: bus-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 6.066823108731986
+Tracker: mixformer_online baseline None ,  Sequence: tank-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.014146385896226
+Tracker: mixformer_online baseline None ,  Sequence: racing-20
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.2352992098614433
+Tracker: mixformer_online baseline None ,  Sequence: robot-8
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.546223027414781
+Tracker: mixformer_online baseline None ,  Sequence: rabbit-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.5464190540549496
+Tracker: mixformer_online baseline None ,  Sequence: bird-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.024453978172546
+Tracker: mixformer_online baseline None ,  Sequence: rubicCube-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.057201244074699
+Tracker: mixformer_online baseline None ,  Sequence: person-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.812878121319019
+Tracker: mixformer_online baseline None ,  Sequence: swing-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.779783396924156
+Tracker: mixformer_online baseline None ,  Sequence: pool-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.887488653692894
+Tracker: mixformer_online baseline None ,  Sequence: sheep-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.696531477182803
+Tracker: mixformer_online baseline None ,  Sequence: tank-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.475376746406963
+Tracker: mixformer_online baseline None ,  Sequence: skateboard-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.6561782874639808
+Tracker: mixformer_online baseline None ,  Sequence: bear-4
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.688121478172385
+Tracker: mixformer_online baseline None ,  Sequence: racing-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.332855989321895
+Tracker: mixformer_online baseline None ,  Sequence: drone-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.533194511929598
+Tracker: mixformer_online baseline None ,  Sequence: tiger-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.7402194144295944
+Tracker: mixformer_online baseline None ,  Sequence: turtle-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.763859700830655
+Tracker: mixformer_online baseline None ,  Sequence: tiger-12
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.752849410616723
+Tracker: mixformer_online baseline None ,  Sequence: racing-15
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.610092226002936
+Tracker: mixformer_online baseline None ,  Sequence: rabbit-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.502784811067001
+Tracker: mixformer_online baseline None ,  Sequence: sheep-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.523815669012021
+Tracker: mixformer_online baseline None ,  Sequence: skateboard-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.7943583025208603
+Tracker: mixformer_online baseline None ,  Sequence: train-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.888284003681625
+Tracker: mixformer_online baseline None ,  Sequence: coin-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.621136889932307
+Tracker: mixformer_online baseline None ,  Sequence: robot-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.7999811343334335
+Tracker: mixformer_online baseline None ,  Sequence: sepia-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.9621497794873415
+Tracker: mixformer_online baseline None ,  Sequence: drone-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.8831487596264918
+Tracker: mixformer_online baseline None ,  Sequence: turtle-8
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.813611815870247
+Tracker: mixformer_online baseline None ,  Sequence: swing-14
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.150756625114598
+Tracker: mixformer_online baseline None ,  Sequence: rubicCube-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.1857448817996943
+Tracker: mixformer_online baseline None ,  Sequence: train-11
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.515274926600284
+Tracker: mixformer_online baseline None ,  Sequence: elephant-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.8596749710626805
+Tracker: mixformer_online baseline None ,  Sequence: sheep-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.487581011279609
+Tracker: mixformer_online baseline None ,  Sequence: tiger-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.9208125067666764
+Tracker: mixformer_online baseline None ,  Sequence: coin-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.2217790063439065
+Tracker: mixformer_online baseline None ,  Sequence: yoyo-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.860593740511409
+Tracker: mixformer_online baseline None ,  Sequence: sepia-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.7829553103944575
+Tracker: mixformer_online baseline None ,  Sequence: person-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.055909887512309
+Tracker: mixformer_online baseline None ,  Sequence: elephant-12
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.850216965333365
+Tracker: mixformer_online baseline None ,  Sequence: train-20
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.10340933507475
+Tracker: mixformer_online baseline None ,  Sequence: swing-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.4390292611755546
+Tracker: mixformer_online baseline None ,  Sequence: sepia-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.837122087605498
+Tracker: mixformer_online baseline None ,  Sequence: umbrella-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.9237398095044944
+Tracker: mixformer_online baseline None ,  Sequence: skateboard-8
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.4592703400598652
+Tracker: mixformer_online baseline None ,  Sequence: kite-15
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.054358556177497
+Tracker: mixformer_online baseline None ,  Sequence: person-12
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.106521682566081
+Tracker: mixformer_online baseline None ,  Sequence: zebra-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.4002137693713905
+Tracker: mixformer_online baseline None ,  Sequence: tiger-4
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.4565195930228825
+Tracker: mixformer_online baseline None ,  Sequence: train-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.076161246887219
+Tracker: mixformer_online baseline None ,  Sequence: skateboard-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.7944769038024813
+Tracker: mixformer_online baseline None ,  Sequence: truck-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.333786739967003
+Tracker: mixformer_online baseline None ,  Sequence: robot-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.281641329117543
+Tracker: mixformer_online baseline None ,  Sequence: mouse-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.2491948038982
+Tracker: mixformer_online baseline None ,  Sequence: elephant-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.174878137660584
+Tracker: mixformer_online baseline None ,  Sequence: umbrella-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.010702802127047
+Tracker: mixformer_online baseline None ,  Sequence: zebra-14
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.176391435535618
+Tracker: mixformer_online baseline None ,  Sequence: mouse-8
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.4737176708571305
+Tracker: mixformer_online baseline None ,  Sequence: truck-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.233154907568662
+Tracker: mixformer_online baseline None ,  Sequence: yoyo-15
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.0370181777707295
+Tracker: mixformer_online baseline None ,  Sequence: elephant-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.389096832086926
+Tracker: mixformer_online baseline None ,  Sequence: motorcycle-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.3011371185801055
+Tracker: mixformer_online baseline None ,  Sequence: gametarget-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.661250248785499
+Tracker: mixformer_online baseline None ,  Sequence: frog-20
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.627930331283134
+Tracker: mixformer_online baseline None ,  Sequence: robot-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.744711205881348
+Tracker: mixformer_online baseline None ,  Sequence: zebra-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.291779206365909
+Tracker: mixformer_online baseline None ,  Sequence: pig-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.36142585520899
+Tracker: mixformer_online baseline None ,  Sequence: goldfish-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.309139330248687
+Tracker: mixformer_online baseline None ,  Sequence: tank-14
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.481975303242811
+Tracker: mixformer_online baseline None ,  Sequence: sepia-8
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9369213311121656
+Tracker: mixformer_online baseline None ,  Sequence: yoyo-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.233507446100579
+Tracker: mixformer_online baseline None ,  Sequence: hat-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.5606896885321326
+Tracker: mixformer_online baseline None ,  Sequence: frog-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.6770543904698965
+Tracker: mixformer_online baseline None ,  Sequence: helmet-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.8566929971376185
+Tracker: mixformer_online baseline None ,  Sequence: hand-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.062827260380082
+Tracker: mixformer_online baseline None ,  Sequence: goldfish-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.020735003711776
+Tracker: mixformer_online baseline None ,  Sequence: flag-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.9814133383057673
+Tracker: mixformer_online baseline None ,  Sequence: turtle-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.277842486475467
+Tracker: mixformer_online baseline None ,  Sequence: mouse-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.432213493380102
+Tracker: mixformer_online baseline None ,  Sequence: motorcycle-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.442643879073585
+Tracker: mixformer_online baseline None ,  Sequence: electricfan-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.871836145198585
+Tracker: mixformer_online baseline None ,  Sequence: goldfish-8
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.4176454173123005
+Tracker: mixformer_online baseline None ,  Sequence: licenseplate-12
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.028004603156255
+Tracker: mixformer_online baseline None ,  Sequence: zebra-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.384374621296146
+Tracker: mixformer_online baseline None ,  Sequence: umbrella-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.451582673292569
+Tracker: mixformer_online baseline None ,  Sequence: chameleon-20
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.701487241302546
+Tracker: mixformer_online baseline None ,  Sequence: mouse-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.704253615940873
+Tracker: mixformer_online baseline None ,  Sequence: helmet-11
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.635720590967448
+Tracker: mixformer_online baseline None ,  Sequence: hat-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.027584258209787
+Tracker: mixformer_online baseline None ,  Sequence: gametarget-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.165860018963678
+Tracker: mixformer_online baseline None ,  Sequence: yoyo-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9336154212850825
+Tracker: mixformer_online baseline None ,  Sequence: flag-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.653625041084759
+Tracker: mixformer_online baseline None ,  Sequence: motorcycle-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.37792609312111
+Tracker: mixformer_online baseline None ,  Sequence: hand-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9036528227032403
+Tracker: mixformer_online baseline None ,  Sequence: tank-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.896656398554648
+Tracker: mixformer_online baseline None ,  Sequence: helmet-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.402846683027857
+Tracker: mixformer_online baseline None ,  Sequence: electricfan-20
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.332894650826444
+Tracker: mixformer_online baseline None ,  Sequence: truck-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.86825339874496
+Tracker: mixformer_online baseline None ,  Sequence: gecko-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.4167349330046273
+Tracker: mixformer_online baseline None ,  Sequence: gametarget-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.943565632391663
+Tracker: mixformer_online baseline None ,  Sequence: flag-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.195257137589921
+Tracker: mixformer_online baseline None ,  Sequence: hand-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.478059442819308
+Tracker: mixformer_online baseline None ,  Sequence: umbrella-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.20439582212612
+Tracker: mixformer_online baseline None ,  Sequence: gecko-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.009187695886141
+Tracker: mixformer_online baseline None ,  Sequence: licenseplate-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9100208300317356
+Tracker: mixformer_online baseline None ,  Sequence: kite-4
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.168118662051408
+Tracker: mixformer_online baseline None ,  Sequence: fox-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.5044303201439915
+Tracker: mixformer_online baseline None ,  Sequence: chameleon-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.690513720335399
+Tracker: mixformer_online baseline None ,  Sequence: giraffe-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.4213191873274043
+Tracker: mixformer_online baseline None ,  Sequence: motorcycle-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9821767193996975
+Tracker: mixformer_online baseline None ,  Sequence: flag-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.148434716623019
+Tracker: mixformer_online baseline None ,  Sequence: gametarget-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.401755991010625
+Tracker: mixformer_online baseline None ,  Sequence: gorilla-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.149356646754169
+Tracker: mixformer_online baseline None ,  Sequence: gecko-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.93214934298161
+Tracker: mixformer_online baseline None ,  Sequence: crocodile-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.816402667722266
+Tracker: mixformer_online baseline None ,  Sequence: helmet-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.134335439937534
+Tracker: mixformer_online baseline None ,  Sequence: horse-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.093778059694954
+Tracker: mixformer_online baseline None ,  Sequence: licenseplate-15
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.952931230561357
+Tracker: mixformer_online baseline None ,  Sequence: goldfish-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9726556998803235
+Tracker: mixformer_online baseline None ,  Sequence: giraffe-15
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.6358581933763543
+Tracker: mixformer_online baseline None ,  Sequence: fox-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.4348514988793717
+Tracker: mixformer_online baseline None ,  Sequence: chameleon-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.142567135271595
+Tracker: mixformer_online baseline None ,  Sequence: licenseplate-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9088059649812195
+Tracker: mixformer_online baseline None ,  Sequence: crocodile-4
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9150338641612006
+Tracker: mixformer_online baseline None ,  Sequence: frog-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.797296055246595
+Tracker: mixformer_online baseline None ,  Sequence: kite-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.0452959391561243
+Tracker: mixformer_online baseline None ,  Sequence: horse-4
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.642445892303069
+Tracker: mixformer_online baseline None ,  Sequence: leopard-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9559718553439103
+Tracker: mixformer_online baseline None ,  Sequence: gecko-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.276094669202821
+Tracker: mixformer_online baseline None ,  Sequence: electricfan-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.7366233551597867
+Tracker: mixformer_online baseline None ,  Sequence: kangaroo-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.519035037895789
+Tracker: mixformer_online baseline None ,  Sequence: hippo-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.252233353037882
+Tracker: mixformer_online baseline None ,  Sequence: gorilla-4
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9085404345375596
+Tracker: mixformer_online baseline None ,  Sequence: frog-4
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.2104635599173355
+Tracker: mixformer_online baseline None ,  Sequence: hand-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9070557213491193
+Tracker: mixformer_online baseline None ,  Sequence: crocodile-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.89407810851583
+Tracker: mixformer_online baseline None ,  Sequence: lion-20
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.2653595675696008
+Tracker: mixformer_online baseline None ,  Sequence: chameleon-11
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.442876122605703
+Tracker: mixformer_online baseline None ,  Sequence: truck-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.006987441143772
+Tracker: mixformer_online baseline None ,  Sequence: hat-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.1875621809171517
+Tracker: mixformer_online baseline None ,  Sequence: electricfan-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.1737662838931255
+Tracker: mixformer_online baseline None ,  Sequence: horse-12
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.442544705197912
+Tracker: mixformer_online baseline None ,  Sequence: monkey-4
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.678365109105739
+Tracker: mixformer_online baseline None ,  Sequence: kangaroo-11
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.2658626351304134
+Tracker: mixformer_online baseline None ,  Sequence: fox-20
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.684612974459305
+Tracker: mixformer_online baseline None ,  Sequence: shark-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.6776802255779897
+Tracker: mixformer_online baseline None ,  Sequence: squirrel-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.610810293261951
+Tracker: mixformer_online baseline None ,  Sequence: kite-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.7902875098527855
+Tracker: mixformer_online baseline None ,  Sequence: fox-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.3583485112092863
+Tracker: mixformer_online baseline None ,  Sequence: crocodile-14
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.2336225121106885
+Tracker: mixformer_online baseline None ,  Sequence: hat-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.2700229146290822
+Tracker: mixformer_online baseline None ,  Sequence: hippo-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.3560783822458937
+Tracker: mixformer_online baseline None ,  Sequence: leopard-20
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.715019036235172
+Tracker: mixformer_online baseline None ,  Sequence: gorilla-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.270426779426304
+Tracker: mixformer_online baseline None ,  Sequence: kangaroo-14
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.338163194131938
+Tracker: mixformer_online baseline None ,  Sequence: volleyball-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.5010134729764815
+Tracker: mixformer_online baseline None ,  Sequence: shark-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.9678132741480683
+Tracker: mixformer_online baseline None ,  Sequence: giraffe-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.2136376570564504
+Tracker: mixformer_online baseline None ,  Sequence: lizard-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.2931509270110775
+Tracker: mixformer_online baseline None ,  Sequence: turtle-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.025248098119151
+Tracker: mixformer_online baseline None ,  Sequence: lion-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.339352225363827
+Tracker: mixformer_online baseline None ,  Sequence: leopard-1
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.5797996875559406
+Tracker: mixformer_online baseline None ,  Sequence: horse-15
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.369026929804944
+Tracker: mixformer_online baseline None ,  Sequence: microphone-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.662867198789675
+Tracker: mixformer_online baseline None ,  Sequence: gorilla-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.7607359783023435
+Tracker: mixformer_online baseline None ,  Sequence: squirrel-8
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 2.9896744247672045
+Tracker: mixformer_online baseline None ,  Sequence: hippo-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.032069046085181
+Tracker: mixformer_online baseline None ,  Sequence: monkey-9
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.807660184197519
+Tracker: mixformer_online baseline None ,  Sequence: volleyball-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.770902295341233
+Tracker: mixformer_online baseline None ,  Sequence: giraffe-10
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.713283867801803
+Tracker: mixformer_online baseline None ,  Sequence: leopard-7
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.0434056750392875
+Tracker: mixformer_online baseline None ,  Sequence: squirrel-11
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.242581184674974
+Tracker: mixformer_online baseline None ,  Sequence: microphone-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 4.590587427102454
+Tracker: mixformer_online baseline None ,  Sequence: hippo-20
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.6751874413640437
+Tracker: mixformer_online baseline None ,  Sequence: kangaroo-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.232843328499628
+Tracker: mixformer_online baseline None ,  Sequence: lion-5
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 5.480983876305455
+Tracker: mixformer_online baseline None ,  Sequence: monkey-17
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 6.638670132235431
+Tracker: mixformer_online baseline None ,  Sequence: volleyball-18
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 6.8527815533656105
+Tracker: mixformer_online baseline None ,  Sequence: squirrel-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 6.778072991734239
+Tracker: mixformer_online baseline None ,  Sequence: microphone-14
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 9.614778207626653
+Tracker: mixformer_online baseline None ,  Sequence: volleyball-19
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.2345806696416557
+Tracker: mixformer_online baseline None ,  Sequence: lizard-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 7.897074665578678
+Tracker: mixformer_online baseline None ,  Sequence: shark-2
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 10.978368451276593
+Tracker: mixformer_online baseline None ,  Sequence: microphone-16
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 6.790271496759436
+Tracker: mixformer_online baseline None ,  Sequence: lion-12
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 6.998504195818852
+Tracker: mixformer_online baseline None ,  Sequence: lizard-6
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 12.66158204463824
+Tracker: mixformer_online baseline None ,  Sequence: shark-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 13.158564278946612
+Tracker: mixformer_online baseline None ,  Sequence: monkey-3
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 11.486189604796914
+Tracker: mixformer_online baseline None ,  Sequence: lizard-13
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Online size is:  2
+Update interval is:  200
+max score decay = 1.0
+FPS: 3.6835669739080474
+FPS: 2.9300567995796927
+FPS: 2.906282850733218
+FPS: 3.6352644905894733
+FPS: 4.533480557893045
+FPS: 5.176678946299212
+FPS: 5.920119179299545
+FPS: 7.823362172278816
+FPS: 6.5754677654121405
+FPS: 6.225380252795985
+FPS: 10.59098412801276
+FPS: 9.558724189859106
+FPS: 13.471645607093281
+FPS: 16.156580229141174
+FPS: 16.464013998244642
+Done

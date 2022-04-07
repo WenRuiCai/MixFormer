@@ -1,0 +1,1044 @@
+script_name: mixformer_online.py  config_name: baseline.yaml
+script_name: mixformer_online.py  config_name: baseline.yaml
+New configuration is shown below.
+MODEL configuration: {'HEAD_TYPE': 'CORNER', 'HIDDEN_DIM': 384, 'NUM_OBJECT_QUERIES': 1, 'POSITION_EMBEDDING': 'sine', 'PREDICT_MASK': False, 'BACKBONE': {'PRETRAINED': True, 'PRETRAINED_PATH': '', 'INIT': 'trunc_norm', 'NUM_STAGES': 3, 'PATCH_SIZE': [7, 3, 3], 'PATCH_STRIDE': [4, 2, 2], 'PATCH_PADDING': [2, 1, 1], 'DIM_EMBED': [64, 192, 384], 'NUM_HEADS': [1, 3, 6], 'DEPTH': [1, 4, 16], 'MLP_RATIO': [4.0, 4.0, 4.0], 'ATTN_DROP_RATE': [0.0, 0.0, 0.0], 'DROP_RATE': [0.0, 0.0, 0.0], 'DROP_PATH_RATE': [0.0, 0.0, 0.1], 'QKV_BIAS': [True, True, True], 'CLS_TOKEN': [False, False, False], 'POS_EMBED': [False, False, False], 'QKV_PROJ_METHOD': ['dw_bn', 'dw_bn', 'dw_bn'], 'KERNEL_QKV': [3, 3, 3], 'PADDING_KV': [1, 1, 1], 'STRIDE_KV': [2, 2, 2], 'PADDING_Q': [1, 1, 1], 'STRIDE_Q': [1, 1, 1], 'FREEZE_BN': True}, 'PRETRAINED_STAGE1': True, 'NLAYER_HEAD': 3, 'HEAD_FREEZE_BN': True}
+
+
+TRAIN configuration: {'TRAIN_SCORE': True, 'SCORE_WEIGHT': 1.0, 'LR': 0.0001, 'WEIGHT_DECAY': 0.0001, 'EPOCH': 50, 'LR_DROP_EPOCH': 20, 'BATCH_SIZE': 72, 'NUM_WORKER': 36, 'OPTIMIZER': 'ADAMW', 'BACKBONE_MULTIPLIER': 0.1, 'GIOU_WEIGHT': 2.0, 'L1_WEIGHT': 5.0, 'DEEP_SUPERVISION': False, 'FREEZE_STAGE0': False, 'PRINT_INTERVAL': 50, 'VAL_EPOCH_INTERVAL': 5, 'GRAD_CLIP_NORM': 0.1, 'SCHEDULER': {'TYPE': 'step', 'DECAY_RATE': 0.1}}
+
+
+DATA configuration: {'SAMPLER_MODE': 'trident_pro', 'MEAN': [0.485, 0.456, 0.406], 'STD': [0.229, 0.224, 0.225], 'MAX_SAMPLE_INTERVAL': [200], 'TRAIN': {'DATASETS_NAME': ['GOT10K_vottrain', 'LASOT', 'COCO17', 'TRACKINGNET'], 'DATASETS_RATIO': [1, 1, 1, 1], 'SAMPLE_PER_EPOCH': 60000}, 'VAL': {'DATASETS_NAME': ['GOT10K_votval'], 'DATASETS_RATIO': [1], 'SAMPLE_PER_EPOCH': 10000}, 'SEARCH': {'SIZE': 320, 'FACTOR': 5.0, 'CENTER_JITTER': 4.5, 'SCALE_JITTER': 0.5}, 'TEMPLATE': {'SIZE': 128, 'FACTOR': 2.0, 'NUMBER': 2, 'CENTER_JITTER': 0, 'SCALE_JITTER': 0}}
+
+
+TEST configuration: {'TEMPLATE_FACTOR': 2.0, 'TEMPLATE_SIZE': 128, 'SEARCH_FACTOR': 5.0, 'SEARCH_SIZE': 320, 'EPOCH': 40, 'UPDATE_INTERVALS': {'LASOT': [200], 'GOT10K_TEST': [10], 'TRACKINGNET': [25], 'VOT20': [10], 'VOT20LT': [200], 'OTB': [6], 'UAV': [200]}, 'ONLINE_SIZES': {'LASOT': [2], 'GOT10K_TEST': [2], 'TRACKINGNET': [1], 'VOT20': [5], 'VOT20LT': [3], 'OTB': [3], 'UAV': [1]}}
+
+
+sampler_mode trident_pro
+sampler_mode trident_pro
+loading annotations into memory...
+loading annotations into memory...
+Done (t=35.97s)
+creating index...
+Done (t=36.27s)
+creating index...
+index created!
+index created!
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+Warning: Pretrained CVT weights are not loaded
+head channel: 384
+missing keys: ['score_branch.score_token', 'score_branch.score_head.layers.0.weight', 'score_branch.score_head.layers.0.bias', 'score_branch.score_head.layers.1.weight', 'score_branch.score_head.layers.1.bias', 'score_branch.score_head.layers.2.weight', 'score_branch.score_head.layers.2.bias', 'score_branch.proj_q.0.weight', 'score_branch.proj_q.0.bias', 'score_branch.proj_q.1.weight', 'score_branch.proj_q.1.bias', 'score_branch.proj_k.0.weight', 'score_branch.proj_k.0.bias', 'score_branch.proj_k.1.weight', 'score_branch.proj_k.1.bias', 'score_branch.proj_v.0.weight', 'score_branch.proj_v.0.bias', 'score_branch.proj_v.1.weight', 'score_branch.proj_v.1.bias', 'score_branch.proj.0.weight', 'score_branch.proj.0.bias', 'score_branch.proj.1.weight', 'score_branch.proj.1.bias', 'score_branch.norm1.weight', 'score_branch.norm1.bias', 'score_branch.norm2.0.weight', 'score_branch.norm2.0.bias', 'score_branch.norm2.1.weight', 'score_branch.norm2.1.bias']
+unexpected keys: []
+Loading pretrained mixformer weights done.
+Only training score_branch. Learnable parameters are shown below.
+Only training score_branch. Learnable parameters are shown below.
+module.score_branch.score_token
+module.score_branch.score_head.layers.0.weight
+module.score_branch.score_head.layers.0.bias
+module.score_branch.score_head.layers.1.weight
+module.score_branch.score_head.layers.1.bias
+module.score_branch.score_head.layers.2.weight
+module.score_branch.score_head.layers.2.bias
+module.score_branch.proj_q.0.weight
+module.score_branch.proj_q.0.bias
+module.score_branch.proj_q.1.weight
+module.score_branch.proj_q.1.bias
+module.score_branch.proj_k.0.weight
+module.score_branch.proj_k.0.bias
+module.score_branch.proj_k.1.weight
+module.score_branch.proj_k.1.bias
+module.score_branch.proj_v.0.weight
+module.score_branch.proj_v.0.bias
+module.score_branch.proj_v.1.weight
+module.score_branch.proj_v.1.bias
+module.score_branch.proj.0.weight
+module.score_branch.proj.0.bias
+module.score_branch.proj.1.weight
+module.score_branch.proj.1.bias
+module.score_branch.norm1.weight
+module.score_branch.norm1.bias
+module.score_branch.norm2.0.weight
+module.score_branch.norm2.0.bias
+module.score_branch.norm2.1.weight
+module.score_branch.norm2.1.bias
+checkpoints will be saved to /home/wenrui/MixFormer/models/mixformer_online/checkpoints
+checkpoints will be saved to /home/wenrui/MixFormer/models/mixformer_online/checkpoints
+No matching checkpoint file found
+No matching checkpoint file found
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Using /home/wenrui/.cache/torch_extensions as PyTorch extensions root...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /home/wenrui/.cache/torch_extensions/_prroi_pooling/build.ninja...
+Building extension module _prroi_pooling...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Loading extension module _prroi_pooling...
+Loading extension module _prroi_pooling...
+[train: 1, 50 / 416] FPS: 30.2 (84.0)  ,  Loss/total: 0.40850  ,  Loss/scores: 0.40850
+[train: 1, 50 / 416] FPS: 30.2 (83.7)  ,  Loss/total: 0.40370  ,  Loss/scores: 0.40370
+[train: 1, 100 / 416] FPS: 30.5 (82.7)  ,  Loss/total: 0.25090  ,  Loss/scores: 0.25090
+[train: 1, 100 / 416] FPS: 30.5 (82.1)  ,  Loss/total: 0.24817  ,  Loss/scores: 0.24817
+[train: 1, 150 / 416] FPS: 38.7 (83.5)  ,  Loss/total: 0.18982  ,  Loss/scores: 0.18982
+[train: 1, 150 / 416] FPS: 38.7 (83.3)  ,  Loss/total: 0.19439  ,  Loss/scores: 0.19439
+[train: 1, 200 / 416] FPS: 44.7 (83.1)  ,  Loss/total: 0.16253  ,  Loss/scores: 0.16253
+[train: 1, 200 / 416] FPS: 44.7 (83.1)  ,  Loss/total: 0.16056  ,  Loss/scores: 0.16056
+[train: 1, 250 / 416] FPS: 49.3 (81.9)  ,  Loss/total: 0.13947  ,  Loss/scores: 0.13947
+[train: 1, 250 / 416] FPS: 49.3 (81.3)  ,  Loss/total: 0.14085  ,  Loss/scores: 0.14085
+[train: 1, 300 / 416] FPS: 33.8 (86.4)  ,  Loss/total: 0.12903  ,  Loss/scores: 0.12903
+[train: 1, 300 / 416] FPS: 33.7 (85.9)  ,  Loss/total: 0.12745  ,  Loss/scores: 0.12745
+[train: 1, 350 / 416] FPS: 36.8 (82.4)  ,  Loss/total: 0.11881  ,  Loss/scores: 0.11881
+[train: 1, 350 / 416] FPS: 36.8 (82.9)  ,  Loss/total: 0.11823  ,  Loss/scores: 0.11823
+[train: 1, 400 / 416] FPS: 38.1 (87.1)  ,  Loss/total: 0.11074  ,  Loss/scores: 0.11074
+[train: 1, 400 / 416] FPS: 38.1 (87.1)  ,  Loss/total: 0.11311  ,  Loss/scores: 0.11311
+[train: 1, 416 / 416] FPS: 39.0 (88.0)  ,  Loss/total: 0.11179  ,  Loss/scores: 0.11179
+[train: 1, 416 / 416] FPS: 38.9 (88.0)  ,  Loss/total: 0.10901  ,  Loss/scores: 0.10901
+/home/wenrui/anaconda3/envs/mixformer/lib/python3.6/site-packages/torch/optim/lr_scheduler.py:370: UserWarning: To get the last learning rate computed by the scheduler, please use `get_last_lr()`.
+  "please use `get_last_lr()`.", UserWarning)
+/home/wenrui/anaconda3/envs/mixformer/lib/python3.6/site-packages/torch/optim/lr_scheduler.py:370: UserWarning: To get the last learning rate computed by the scheduler, please use `get_last_lr()`.
+  "please use `get_last_lr()`.", UserWarning)
+[train: 2, 50 / 416] FPS: 46.8 (86.4)  ,  Loss/total: 0.05039  ,  Loss/scores: 0.05039
+[train: 2, 50 / 416] FPS: 47.1 (85.5)  ,  Loss/total: 0.06445  ,  Loss/scores: 0.06445
+[train: 2, 100 / 416] FPS: 60.2 (83.4)  ,  Loss/total: 0.05962  ,  Loss/scores: 0.05962
+[train: 2, 100 / 416] FPS: 60.4 (82.5)  ,  Loss/total: 0.06774  ,  Loss/scores: 0.06774
+[train: 2, 150 / 416] FPS: 66.6 (86.2)  ,  Loss/total: 0.06127  ,  Loss/scores: 0.06127
+[train: 2, 150 / 416] FPS: 66.8 (85.3)  ,  Loss/total: 0.06375  ,  Loss/scores: 0.06375
+[train: 2, 200 / 416] FPS: 53.9 (2.3)  ,  Loss/total: 0.05824  ,  Loss/scores: 0.05824
+[train: 2, 200 / 416] FPS: 53.9 (2.3)  ,  Loss/total: 0.06280  ,  Loss/scores: 0.06280
+[train: 2, 250 / 416] FPS: 58.2 (84.9)  ,  Loss/total: 0.05739  ,  Loss/scores: 0.05739
+[train: 2, 250 / 416] FPS: 58.3 (85.7)  ,  Loss/total: 0.06265  ,  Loss/scores: 0.06265
+[train: 2, 300 / 416] FPS: 55.5 (86.3)  ,  Loss/total: 0.05612  ,  Loss/scores: 0.05612
+[train: 2, 300 / 416] FPS: 55.6 (85.4)  ,  Loss/total: 0.06103  ,  Loss/scores: 0.06103
+[train: 2, 350 / 416] FPS: 51.7 (87.8)  ,  Loss/total: 0.05552  ,  Loss/scores: 0.05552
+[train: 2, 350 / 416] FPS: 51.8 (86.7)  ,  Loss/total: 0.06184  ,  Loss/scores: 0.06184
+[train: 2, 400 / 416] FPS: 54.5 (87.9)  ,  Loss/total: 0.05511  ,  Loss/scores: 0.05511
+[train: 2, 400 / 416] FPS: 54.5 (87.9)  ,  Loss/total: 0.06041  ,  Loss/scores: 0.06041
+[train: 2, 416 / 416] FPS: 55.3 (88.4)  ,  Loss/total: 0.05557  ,  Loss/scores: 0.05557
+[train: 2, 416 / 416] FPS: 55.3 (88.4)  ,  Loss/total: 0.06023  ,  Loss/scores: 0.06023
+[train: 3, 50 / 416] FPS: 40.8 (87.0)  ,  Loss/total: 0.05339  ,  Loss/scores: 0.05339
+[train: 3, 50 / 416] FPS: 40.8 (86.1)  ,  Loss/total: 0.05001  ,  Loss/scores: 0.05001
+[train: 3, 100 / 416] FPS: 55.4 (86.6)  ,  Loss/total: 0.04444  ,  Loss/scores: 0.04444
+[train: 3, 100 / 416] FPS: 55.4 (86.4)  ,  Loss/total: 0.05527  ,  Loss/scores: 0.05527
+[train: 3, 150 / 416] FPS: 53.2 (81.0)  ,  Loss/total: 0.04763  ,  Loss/scores: 0.04763
+[train: 3, 150 / 416] FPS: 53.2 (78.8)  ,  Loss/total: 0.05187  ,  Loss/scores: 0.05187
+[train: 3, 200 / 416] FPS: 54.6 (86.2)  ,  Loss/total: 0.04903  ,  Loss/scores: 0.04903
+[train: 3, 200 / 416] FPS: 54.6 (86.3)  ,  Loss/total: 0.05201  ,  Loss/scores: 0.05201
+[train: 3, 250 / 416] FPS: 40.1 (86.8)  ,  Loss/total: 0.05017  ,  Loss/scores: 0.05017
+[train: 3, 250 / 416] FPS: 40.1 (85.8)  ,  Loss/total: 0.04766  ,  Loss/scores: 0.04766
+[train: 3, 300 / 416] FPS: 19.0 (89.8)  ,  Loss/total: 0.04692  ,  Loss/scores: 0.04692
+[train: 3, 300 / 416] FPS: 19.0 (88.8)  ,  Loss/total: 0.05130  ,  Loss/scores: 0.05130
+[train: 3, 350 / 416] FPS: 18.2 (85.6)  ,  Loss/total: 0.05206  ,  Loss/scores: 0.05206
+[train: 3, 350 / 416] FPS: 18.2 (85.8)  ,  Loss/total: 0.04747  ,  Loss/scores: 0.04747
+[train: 3, 400 / 416] FPS: 20.0 (87.7)  ,  Loss/total: 0.04707  ,  Loss/scores: 0.04707
+[train: 3, 400 / 416] FPS: 20.0 (87.8)  ,  Loss/total: 0.05219  ,  Loss/scores: 0.05219
+[train: 3, 416 / 416] FPS: 20.6 (88.4)  ,  Loss/total: 0.04740  ,  Loss/scores: 0.04740
+[train: 3, 416 / 416] FPS: 20.6 (88.3)  ,  Loss/total: 0.05192  ,  Loss/scores: 0.05192
+[train: 4, 50 / 416] FPS: 3.3 (88.7)  ,  Loss/total: 0.04095  ,  Loss/scores: 0.04095
+[train: 4, 50 / 416] FPS: 3.3 (89.6)  ,  Loss/total: 0.05152  ,  Loss/scores: 0.05152
+[train: 4, 100 / 416] FPS: 6.2 (88.9)  ,  Loss/total: 0.04557  ,  Loss/scores: 0.04557
+[train: 4, 100 / 416] FPS: 6.2 (88.1)  ,  Loss/total: 0.04456  ,  Loss/scores: 0.04456
+[train: 4, 150 / 416] FPS: 8.8 (87.0)  ,  Loss/total: 0.04285  ,  Loss/scores: 0.04285
+[train: 4, 150 / 416] FPS: 8.8 (86.8)  ,  Loss/total: 0.04456  ,  Loss/scores: 0.04456
+[train: 4, 200 / 416] FPS: 11.2 (87.8)  ,  Loss/total: 0.04399  ,  Loss/scores: 0.04399
+[train: 4, 200 / 416] FPS: 11.2 (88.2)  ,  Loss/total: 0.04531  ,  Loss/scores: 0.04531
+[train: 4, 250 / 416] FPS: 13.3 (85.1)  ,  Loss/total: 0.04288  ,  Loss/scores: 0.04288
+[train: 4, 250 / 416] FPS: 13.3 (85.0)  ,  Loss/total: 0.04614  ,  Loss/scores: 0.04614
+[train: 4, 300 / 416] FPS: 12.3 (87.0)  ,  Loss/total: 0.04242  ,  Loss/scores: 0.04242
+[train: 4, 300 / 416] FPS: 12.3 (86.5)  ,  Loss/total: 0.04575  ,  Loss/scores: 0.04575
+[train: 4, 350 / 416] FPS: 12.3 (87.2)  ,  Loss/total: 0.04687  ,  Loss/scores: 0.04687
+[train: 4, 350 / 416] FPS: 12.3 (87.1)  ,  Loss/total: 0.04262  ,  Loss/scores: 0.04262
+[train: 4, 400 / 416] FPS: 13.8 (87.8)  ,  Loss/total: 0.04235  ,  Loss/scores: 0.04235
+[train: 4, 400 / 416] FPS: 13.8 (87.8)  ,  Loss/total: 0.04617  ,  Loss/scores: 0.04617
+[train: 4, 416 / 416] FPS: 14.3 (87.7)  ,  Loss/total: 0.04674  ,  Loss/scores: 0.04674
+[train: 4, 416 / 416] FPS: 14.3 (87.7)  ,  Loss/total: 0.04172  ,  Loss/scores: 0.04172
+[train: 5, 50 / 416] FPS: 18.2 (88.2)  ,  Loss/total: 0.04755  ,  Loss/scores: 0.04755
+[train: 5, 50 / 416] FPS: 18.2 (87.2)  ,  Loss/total: 0.04268  ,  Loss/scores: 0.04268
+[train: 5, 100 / 416] FPS: 30.0 (85.1)  ,  Loss/total: 0.04874  ,  Loss/scores: 0.04874
+[train: 5, 100 / 416] FPS: 30.0 (85.0)  ,  Loss/total: 0.04505  ,  Loss/scores: 0.04505
+[train: 5, 150 / 416] FPS: 36.5 (83.4)  ,  Loss/total: 0.04662  ,  Loss/scores: 0.04662
+[train: 5, 150 / 416] FPS: 36.5 (83.7)  ,  Loss/total: 0.04751  ,  Loss/scores: 0.04751
+[train: 5, 200 / 416] FPS: 42.6 (81.9)  ,  Loss/total: 0.04475  ,  Loss/scores: 0.04475
+[train: 5, 200 / 416] FPS: 42.6 (80.8)  ,  Loss/total: 0.04680  ,  Loss/scores: 0.04680
+[train: 5, 250 / 416] FPS: 47.3 (84.4)  ,  Loss/total: 0.04377  ,  Loss/scores: 0.04377
+[train: 5, 250 / 416] FPS: 47.2 (84.5)  ,  Loss/total: 0.04699  ,  Loss/scores: 0.04699
+[train: 5, 300 / 416] FPS: 51.0 (85.6)  ,  Loss/total: 0.04308  ,  Loss/scores: 0.04308
+[train: 5, 300 / 416] FPS: 51.0 (85.4)  ,  Loss/total: 0.04911  ,  Loss/scores: 0.04911
+[train: 5, 350 / 416] FPS: 51.2 (84.8)  ,  Loss/total: 0.04350  ,  Loss/scores: 0.04350
+[train: 5, 350 / 416] FPS: 51.2 (84.3)  ,  Loss/total: 0.04830  ,  Loss/scores: 0.04830
+[train: 5, 400 / 416] FPS: 54.0 (86.5)  ,  Loss/total: 0.04385  ,  Loss/scores: 0.04385
+[train: 5, 400 / 416] FPS: 54.0 (86.6)  ,  Loss/total: 0.04765  ,  Loss/scores: 0.04765
+[train: 5, 416 / 416] FPS: 54.8 (86.4)  ,  Loss/total: 0.04396  ,  Loss/scores: 0.04396
+[train: 5, 416 / 416] FPS: 54.8 (85.4)  ,  Loss/total: 0.04804  ,  Loss/scores: 0.04804
+[val: 5, 50 / 69] FPS: 43.0 (98.9)  ,  Loss/total: 0.05080  ,  Loss/scores: 0.05080
+[val: 5, 50 / 69] FPS: 43.0 (94.0)  ,  Loss/total: 0.05280  ,  Loss/scores: 0.05280
+[val: 5, 69 / 69] FPS: 51.0 (100.6)  ,  Loss/total: 0.05204  ,  Loss/scores: 0.05204
+[val: 5, 69 / 69] FPS: 50.6 (95.4)  ,  Loss/total: 0.05224  ,  Loss/scores: 0.05224
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+directory doesn't exist. creating...
+[train: 6, 50 / 416] FPS: 51.4 (83.2)  ,  Loss/total: 0.03503  ,  Loss/scores: 0.03503
+[train: 6, 50 / 416] FPS: 49.5 (81.8)  ,  Loss/total: 0.04356  ,  Loss/scores: 0.04356
+[train: 6, 100 / 416] FPS: 63.9 (83.7)  ,  Loss/total: 0.03672  ,  Loss/scores: 0.03672
+[train: 6, 100 / 416] FPS: 62.4 (83.3)  ,  Loss/total: 0.03939  ,  Loss/scores: 0.03939
+[train: 6, 150 / 416] FPS: 68.4 (84.5)  ,  Loss/total: 0.04261  ,  Loss/scores: 0.04261
+[train: 6, 150 / 416] FPS: 69.6 (83.9)  ,  Loss/total: 0.03917  ,  Loss/scores: 0.03917
+[train: 6, 200 / 416] FPS: 5.9 (83.9)  ,  Loss/total: 0.03936  ,  Loss/scores: 0.03936
+[train: 6, 200 / 416] FPS: 5.9 (84.3)  ,  Loss/total: 0.04155  ,  Loss/scores: 0.04155
+[train: 6, 250 / 416] FPS: 7.2 (85.6)  ,  Loss/total: 0.03979  ,  Loss/scores: 0.03979
+[train: 6, 250 / 416] FPS: 7.2 (85.2)  ,  Loss/total: 0.04185  ,  Loss/scores: 0.04185
+[train: 6, 300 / 416] FPS: 8.5 (86.0)  ,  Loss/total: 0.04123  ,  Loss/scores: 0.04123
+[train: 6, 300 / 416] FPS: 8.5 (85.3)  ,  Loss/total: 0.04165  ,  Loss/scores: 0.04165
+[train: 6, 350 / 416] FPS: 9.7 (86.4)  ,  Loss/total: 0.04235  ,  Loss/scores: 0.04235
+[train: 6, 350 / 416] FPS: 9.7 (85.8)  ,  Loss/total: 0.04140  ,  Loss/scores: 0.04140
+[train: 6, 400 / 416] FPS: 11.0 (87.6)  ,  Loss/total: 0.04213  ,  Loss/scores: 0.04213
+[train: 6, 400 / 416] FPS: 10.9 (87.5)  ,  Loss/total: 0.04134  ,  Loss/scores: 0.04134
+[train: 6, 416 / 416] FPS: 11.3 (86.9)  ,  Loss/total: 0.04073  ,  Loss/scores: 0.04073
+[train: 6, 416 / 416] FPS: 11.3 (85.5)  ,  Loss/total: 0.04230  ,  Loss/scores: 0.04230
+[train: 7, 50 / 416] FPS: 44.4 (82.5)  ,  Loss/total: 0.04868  ,  Loss/scores: 0.04868
+[train: 7, 50 / 416] FPS: 44.4 (82.7)  ,  Loss/total: 0.03271  ,  Loss/scores: 0.03271
+[train: 7, 100 / 416] FPS: 58.0 (83.1)  ,  Loss/total: 0.04359  ,  Loss/scores: 0.04359
+[train: 7, 100 / 416] FPS: 58.0 (83.1)  ,  Loss/total: 0.03839  ,  Loss/scores: 0.03839
+[train: 7, 150 / 416] FPS: 62.4 (77.1)  ,  Loss/total: 0.04538  ,  Loss/scores: 0.04538
+[train: 7, 150 / 416] FPS: 62.4 (76.4)  ,  Loss/total: 0.03866  ,  Loss/scores: 0.03866
+[train: 7, 200 / 416] FPS: 65.5 (73.7)  ,  Loss/total: 0.03760  ,  Loss/scores: 0.03760
+[train: 7, 200 / 416] FPS: 65.5 (72.5)  ,  Loss/total: 0.04682  ,  Loss/scores: 0.04682
+[train: 7, 250 / 416] FPS: 62.1 (86.3)  ,  Loss/total: 0.04653  ,  Loss/scores: 0.04653
+[train: 7, 250 / 416] FPS: 62.1 (86.2)  ,  Loss/total: 0.03849  ,  Loss/scores: 0.03849
+[train: 7, 300 / 416] FPS: 61.7 (88.1)  ,  Loss/total: 0.03930  ,  Loss/scores: 0.03930
+[train: 7, 300 / 416] FPS: 61.7 (87.3)  ,  Loss/total: 0.04463  ,  Loss/scores: 0.04463
+[train: 7, 350 / 416] FPS: 63.1 (85.8)  ,  Loss/total: 0.03887  ,  Loss/scores: 0.03887
+[train: 7, 350 / 416] FPS: 63.1 (86.3)  ,  Loss/total: 0.04274  ,  Loss/scores: 0.04274
+[train: 7, 400 / 416] FPS: 64.1 (86.3)  ,  Loss/total: 0.04228  ,  Loss/scores: 0.04228
+[train: 7, 400 / 416] FPS: 64.1 (87.2)  ,  Loss/total: 0.03886  ,  Loss/scores: 0.03886
+[train: 7, 416 / 416] FPS: 64.7 (87.6)  ,  Loss/total: 0.03928  ,  Loss/scores: 0.03928
+[train: 7, 416 / 416] FPS: 64.7 (86.8)  ,  Loss/total: 0.04340  ,  Loss/scores: 0.04340
+[train: 8, 50 / 416] FPS: 35.7 (85.4)  ,  Loss/total: 0.03614  ,  Loss/scores: 0.03614
+[train: 8, 50 / 416] FPS: 35.7 (85.7)  ,  Loss/total: 0.04082  ,  Loss/scores: 0.04082
+[train: 8, 100 / 416] FPS: 50.2 (78.2)  ,  Loss/total: 0.04042  ,  Loss/scores: 0.04042
+[train: 8, 100 / 416] FPS: 50.1 (78.6)  ,  Loss/total: 0.03505  ,  Loss/scores: 0.03505
+[train: 8, 150 / 416] FPS: 57.8 (80.7)  ,  Loss/total: 0.03877  ,  Loss/scores: 0.03877
+[train: 8, 150 / 416] FPS: 57.8 (80.2)  ,  Loss/total: 0.03840  ,  Loss/scores: 0.03840
+[train: 8, 200 / 416] FPS: 59.2 (87.1)  ,  Loss/total: 0.04023  ,  Loss/scores: 0.04023
+[train: 8, 200 / 416] FPS: 59.2 (86.9)  ,  Loss/total: 0.04100  ,  Loss/scores: 0.04100
+[train: 8, 250 / 416] FPS: 62.9 (84.3)  ,  Loss/total: 0.03998  ,  Loss/scores: 0.03998
+[train: 8, 250 / 416] FPS: 63.0 (85.0)  ,  Loss/total: 0.04175  ,  Loss/scores: 0.04175
+[train: 8, 300 / 416] FPS: 65.6 (85.7)  ,  Loss/total: 0.04095  ,  Loss/scores: 0.04095
+[train: 8, 300 / 416] FPS: 65.6 (84.4)  ,  Loss/total: 0.03892  ,  Loss/scores: 0.03892
+[train: 8, 350 / 416] FPS: 64.8 (84.8)  ,  Loss/total: 0.03993  ,  Loss/scores: 0.03993
+[train: 8, 350 / 416] FPS: 64.8 (84.7)  ,  Loss/total: 0.04043  ,  Loss/scores: 0.04043
+[train: 8, 400 / 416] FPS: 66.9 (87.7)  ,  Loss/total: 0.03937  ,  Loss/scores: 0.03937
+[train: 8, 400 / 416] FPS: 66.9 (87.3)  ,  Loss/total: 0.04073  ,  Loss/scores: 0.04073
+[train: 8, 416 / 416] FPS: 67.4 (88.0)  ,  Loss/total: 0.03942  ,  Loss/scores: 0.03942
+[train: 8, 416 / 416] FPS: 67.4 (88.0)  ,  Loss/total: 0.04080  ,  Loss/scores: 0.04080
+[train: 9, 50 / 416] FPS: 36.7 (88.0)  ,  Loss/total: 0.04005  ,  Loss/scores: 0.04005
+[train: 9, 50 / 416] FPS: 36.7 (88.2)  ,  Loss/total: 0.03807  ,  Loss/scores: 0.03807
+[train: 9, 100 / 416] FPS: 51.1 (87.8)  ,  Loss/total: 0.03763  ,  Loss/scores: 0.03763
+[train: 9, 100 / 416] FPS: 51.1 (86.9)  ,  Loss/total: 0.03800  ,  Loss/scores: 0.03800
+[train: 9, 150 / 416] FPS: 58.7 (84.5)  ,  Loss/total: 0.03938  ,  Loss/scores: 0.03938
+[train: 9, 150 / 416] FPS: 58.7 (84.2)  ,  Loss/total: 0.03724  ,  Loss/scores: 0.03724
+[train: 9, 200 / 416] FPS: 60.2 (84.0)  ,  Loss/total: 0.03941  ,  Loss/scores: 0.03941
+[train: 9, 200 / 416] FPS: 60.3 (83.9)  ,  Loss/total: 0.03861  ,  Loss/scores: 0.03861
+[train: 9, 250 / 416] FPS: 63.9 (85.9)  ,  Loss/total: 0.03797  ,  Loss/scores: 0.03797
+[train: 9, 250 / 416] FPS: 63.9 (85.5)  ,  Loss/total: 0.03892  ,  Loss/scores: 0.03892
+[train: 9, 300 / 416] FPS: 66.4 (85.9)  ,  Loss/total: 0.03951  ,  Loss/scores: 0.03951
+[train: 9, 300 / 416] FPS: 66.4 (86.0)  ,  Loss/total: 0.03734  ,  Loss/scores: 0.03734
+[train: 9, 350 / 416] FPS: 68.4 (85.6)  ,  Loss/total: 0.03967  ,  Loss/scores: 0.03967
+[train: 9, 350 / 416] FPS: 68.4 (85.8)  ,  Loss/total: 0.03890  ,  Loss/scores: 0.03890
+[train: 9, 400 / 416] FPS: 70.3 (86.1)  ,  Loss/total: 0.04027  ,  Loss/scores: 0.04027
+[train: 9, 400 / 416] FPS: 70.3 (86.1)  ,  Loss/total: 0.03899  ,  Loss/scores: 0.03899
+[train: 9, 416 / 416] FPS: 70.8 (83.7)  ,  Loss/total: 0.03960  ,  Loss/scores: 0.03960
+[train: 9, 416 / 416] FPS: 70.8 (83.4)  ,  Loss/total: 0.03817  ,  Loss/scores: 0.03817
+[train: 10, 50 / 416] FPS: 51.8 (87.7)  ,  Loss/total: 0.03930  ,  Loss/scores: 0.03930
+[train: 10, 50 / 416] FPS: 51.8 (87.1)  ,  Loss/total: 0.03704  ,  Loss/scores: 0.03704
+[train: 10, 100 / 416] FPS: 63.6 (81.8)  ,  Loss/total: 0.04313  ,  Loss/scores: 0.04313
+[train: 10, 100 / 416] FPS: 63.7 (81.5)  ,  Loss/total: 0.03806  ,  Loss/scores: 0.03806
+[train: 10, 150 / 416] FPS: 69.0 (81.5)  ,  Loss/total: 0.03746  ,  Loss/scores: 0.03746
+[train: 10, 150 / 416] FPS: 69.0 (83.3)  ,  Loss/total: 0.03920  ,  Loss/scores: 0.03920
+[train: 10, 200 / 416] FPS: 72.1 (85.7)  ,  Loss/total: 0.04003  ,  Loss/scores: 0.04003
+[train: 10, 200 / 416] FPS: 72.1 (83.8)  ,  Loss/total: 0.03673  ,  Loss/scores: 0.03673
+[train: 10, 250 / 416] FPS: 74.1 (80.5)  ,  Loss/total: 0.03673  ,  Loss/scores: 0.03673
+[train: 10, 250 / 416] FPS: 74.1 (80.3)  ,  Loss/total: 0.03914  ,  Loss/scores: 0.03914
+[train: 10, 300 / 416] FPS: 75.5 (79.8)  ,  Loss/total: 0.03876  ,  Loss/scores: 0.03876
+[train: 10, 300 / 416] FPS: 75.5 (80.2)  ,  Loss/total: 0.03635  ,  Loss/scores: 0.03635
+[train: 10, 350 / 416] FPS: 76.5 (85.8)  ,  Loss/total: 0.03814  ,  Loss/scores: 0.03814
+[train: 10, 350 / 416] FPS: 76.6 (85.4)  ,  Loss/total: 0.03789  ,  Loss/scores: 0.03789
+[train: 10, 400 / 416] FPS: 77.7 (87.3)  ,  Loss/total: 0.03716  ,  Loss/scores: 0.03716
+[train: 10, 400 / 416] FPS: 77.7 (87.2)  ,  Loss/total: 0.03758  ,  Loss/scores: 0.03758
+[train: 10, 416 / 416] FPS: 78.0 (86.8)  ,  Loss/total: 0.03700  ,  Loss/scores: 0.03700
+[train: 10, 416 / 416] FPS: 78.0 (86.5)  ,  Loss/total: 0.03694  ,  Loss/scores: 0.03694
+[val: 10, 50 / 69] FPS: 44.9 (95.9)  ,  Loss/total: 0.04327  ,  Loss/scores: 0.04327
+[val: 10, 50 / 69] FPS: 42.6 (100.3)  ,  Loss/total: 0.04484  ,  Loss/scores: 0.04484
+[val: 10, 69 / 69] FPS: 52.7 (95.7)  ,  Loss/total: 0.04392  ,  Loss/scores: 0.04392
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[val: 10, 69 / 69] FPS: 50.5 (99.1)  ,  Loss/total: 0.03919  ,  Loss/scores: 0.03919
+[train: 11, 50 / 416] FPS: 52.3 (83.2)  ,  Loss/total: 0.02972  ,  Loss/scores: 0.02972
+[train: 11, 50 / 416] FPS: 50.8 (82.5)  ,  Loss/total: 0.04081  ,  Loss/scores: 0.04081
+[train: 11, 100 / 416] FPS: 64.5 (84.2)  ,  Loss/total: 0.03404  ,  Loss/scores: 0.03404
+[train: 11, 100 / 416] FPS: 63.4 (83.7)  ,  Loss/total: 0.04763  ,  Loss/scores: 0.04763
+[train: 11, 150 / 416] FPS: 69.7 (86.0)  ,  Loss/total: 0.03559  ,  Loss/scores: 0.03559
+[train: 11, 150 / 416] FPS: 68.8 (84.5)  ,  Loss/total: 0.04144  ,  Loss/scores: 0.04144
+[train: 11, 200 / 416] FPS: 72.2 (83.9)  ,  Loss/total: 0.04102  ,  Loss/scores: 0.04102
+[train: 11, 200 / 416] FPS: 72.9 (84.3)  ,  Loss/total: 0.03719  ,  Loss/scores: 0.03719
+[train: 11, 250 / 416] FPS: 74.7 (82.8)  ,  Loss/total: 0.03646  ,  Loss/scores: 0.03646
+[train: 11, 250 / 416] FPS: 74.1 (83.4)  ,  Loss/total: 0.04141  ,  Loss/scores: 0.04141
+[train: 11, 300 / 416] FPS: 75.5 (86.1)  ,  Loss/total: 0.04095  ,  Loss/scores: 0.04095
+[train: 11, 300 / 416] FPS: 76.0 (84.5)  ,  Loss/total: 0.03718  ,  Loss/scores: 0.03718
+[train: 11, 350 / 416] FPS: 76.6 (84.8)  ,  Loss/total: 0.03949  ,  Loss/scores: 0.03949
+[train: 11, 350 / 416] FPS: 77.1 (84.9)  ,  Loss/total: 0.03729  ,  Loss/scores: 0.03729
+[train: 11, 400 / 416] FPS: 78.1 (87.0)  ,  Loss/total: 0.03629  ,  Loss/scores: 0.03629
+[train: 11, 400 / 416] FPS: 77.7 (87.0)  ,  Loss/total: 0.03904  ,  Loss/scores: 0.03904
+[train: 11, 416 / 416] FPS: 78.4 (84.9)  ,  Loss/total: 0.03641  ,  Loss/scores: 0.03641
+[train: 11, 416 / 416] FPS: 78.0 (85.3)  ,  Loss/total: 0.03901  ,  Loss/scores: 0.03901
+[train: 12, 50 / 416] FPS: 50.0 (84.8)  ,  Loss/total: 0.03373  ,  Loss/scores: 0.03373
+[train: 12, 50 / 416] FPS: 50.0 (84.0)  ,  Loss/total: 0.03411  ,  Loss/scores: 0.03411
+[train: 12, 100 / 416] FPS: 63.0 (84.7)  ,  Loss/total: 0.03387  ,  Loss/scores: 0.03387
+[train: 12, 100 / 416] FPS: 63.0 (84.5)  ,  Loss/total: 0.03343  ,  Loss/scores: 0.03343
+[train: 12, 150 / 416] FPS: 68.9 (82.0)  ,  Loss/total: 0.03427  ,  Loss/scores: 0.03427
+[train: 12, 150 / 416] FPS: 68.9 (81.1)  ,  Loss/total: 0.03439  ,  Loss/scores: 0.03439
+[train: 12, 200 / 416] FPS: 72.1 (85.9)  ,  Loss/total: 0.03272  ,  Loss/scores: 0.03272
+[train: 12, 200 / 416] FPS: 72.1 (86.4)  ,  Loss/total: 0.03348  ,  Loss/scores: 0.03348
+[train: 12, 250 / 416] FPS: 74.3 (80.7)  ,  Loss/total: 0.03333  ,  Loss/scores: 0.03333
+[train: 12, 250 / 416] FPS: 74.3 (80.0)  ,  Loss/total: 0.03473  ,  Loss/scores: 0.03473
+[train: 12, 300 / 416] FPS: 75.7 (85.9)  ,  Loss/total: 0.03377  ,  Loss/scores: 0.03377
+[train: 12, 300 / 416] FPS: 75.7 (86.4)  ,  Loss/total: 0.03535  ,  Loss/scores: 0.03535
+[train: 12, 350 / 416] FPS: 76.9 (86.7)  ,  Loss/total: 0.03367  ,  Loss/scores: 0.03367
+[train: 12, 350 / 416] FPS: 76.9 (85.8)  ,  Loss/total: 0.03595  ,  Loss/scores: 0.03595
+[train: 12, 400 / 416] FPS: 78.0 (87.8)  ,  Loss/total: 0.03557  ,  Loss/scores: 0.03557
+[train: 12, 400 / 416] FPS: 78.0 (86.9)  ,  Loss/total: 0.03616  ,  Loss/scores: 0.03616
+[train: 12, 416 / 416] FPS: 78.3 (86.6)  ,  Loss/total: 0.03543  ,  Loss/scores: 0.03543
+[train: 12, 416 / 416] FPS: 78.3 (86.7)  ,  Loss/total: 0.03584  ,  Loss/scores: 0.03584
+[train: 13, 50 / 416] FPS: 48.7 (87.1)  ,  Loss/total: 0.03097  ,  Loss/scores: 0.03097
+[train: 13, 50 / 416] FPS: 48.7 (86.9)  ,  Loss/total: 0.04023  ,  Loss/scores: 0.04023
+[train: 13, 100 / 416] FPS: 61.8 (85.5)  ,  Loss/total: 0.04057  ,  Loss/scores: 0.04057
+[train: 13, 100 / 416] FPS: 61.8 (85.6)  ,  Loss/total: 0.02913  ,  Loss/scores: 0.02913
+[train: 13, 150 / 416] FPS: 67.8 (84.7)  ,  Loss/total: 0.03764  ,  Loss/scores: 0.03764
+[train: 13, 150 / 416] FPS: 67.8 (84.1)  ,  Loss/total: 0.03119  ,  Loss/scores: 0.03119
+[train: 13, 200 / 416] FPS: 71.3 (86.2)  ,  Loss/total: 0.03096  ,  Loss/scores: 0.03096
+[train: 13, 200 / 416] FPS: 71.3 (84.5)  ,  Loss/total: 0.03758  ,  Loss/scores: 0.03758
+[train: 13, 250 / 416] FPS: 73.6 (86.4)  ,  Loss/total: 0.03314  ,  Loss/scores: 0.03314
+[train: 13, 250 / 416] FPS: 73.6 (85.5)  ,  Loss/total: 0.03587  ,  Loss/scores: 0.03587
+[train: 13, 300 / 416] FPS: 75.1 (85.2)  ,  Loss/total: 0.03482  ,  Loss/scores: 0.03482
+[train: 13, 300 / 416] FPS: 75.1 (85.0)  ,  Loss/total: 0.03292  ,  Loss/scores: 0.03292
+[train: 13, 350 / 416] FPS: 76.2 (86.1)  ,  Loss/total: 0.03353  ,  Loss/scores: 0.03353
+[train: 13, 350 / 416] FPS: 76.2 (85.8)  ,  Loss/total: 0.03543  ,  Loss/scores: 0.03543
+[train: 13, 400 / 416] FPS: 77.4 (87.9)  ,  Loss/total: 0.03380  ,  Loss/scores: 0.03380
+[train: 13, 400 / 416] FPS: 77.4 (87.5)  ,  Loss/total: 0.03557  ,  Loss/scores: 0.03557
+[train: 13, 416 / 416] FPS: 77.7 (86.0)  ,  Loss/total: 0.03563  ,  Loss/scores: 0.03563
+[train: 13, 416 / 416] FPS: 77.7 (86.0)  ,  Loss/total: 0.03334  ,  Loss/scores: 0.03334
+[train: 14, 50 / 416] FPS: 51.7 (84.1)  ,  Loss/total: 0.03097  ,  Loss/scores: 0.03097
+[train: 14, 50 / 416] FPS: 51.6 (84.2)  ,  Loss/total: 0.03577  ,  Loss/scores: 0.03577
+[train: 14, 100 / 416] FPS: 64.1 (84.3)  ,  Loss/total: 0.03534  ,  Loss/scores: 0.03534
+[train: 14, 100 / 416] FPS: 64.1 (84.6)  ,  Loss/total: 0.03460  ,  Loss/scores: 0.03460
+[train: 14, 150 / 416] FPS: 69.6 (82.9)  ,  Loss/total: 0.03225  ,  Loss/scores: 0.03225
+[train: 14, 150 / 416] FPS: 69.6 (81.8)  ,  Loss/total: 0.03254  ,  Loss/scores: 0.03254
+[train: 14, 200 / 416] FPS: 72.8 (85.4)  ,  Loss/total: 0.03587  ,  Loss/scores: 0.03587
+[train: 14, 200 / 416] FPS: 72.8 (85.5)  ,  Loss/total: 0.03269  ,  Loss/scores: 0.03269
+[train: 14, 250 / 416] FPS: 74.9 (87.0)  ,  Loss/total: 0.03233  ,  Loss/scores: 0.03233
+[train: 14, 250 / 416] FPS: 74.9 (86.1)  ,  Loss/total: 0.03550  ,  Loss/scores: 0.03550
+[train: 14, 300 / 416] FPS: 76.3 (85.6)  ,  Loss/total: 0.03296  ,  Loss/scores: 0.03296
+[train: 14, 300 / 416] FPS: 76.3 (85.7)  ,  Loss/total: 0.03557  ,  Loss/scores: 0.03557
+[train: 14, 350 / 416] FPS: 77.4 (85.8)  ,  Loss/total: 0.03388  ,  Loss/scores: 0.03388
+[train: 14, 350 / 416] FPS: 77.4 (85.9)  ,  Loss/total: 0.03566  ,  Loss/scores: 0.03566
+[train: 14, 400 / 416] FPS: 78.5 (89.0)  ,  Loss/total: 0.03542  ,  Loss/scores: 0.03542
+[train: 14, 400 / 416] FPS: 78.5 (89.0)  ,  Loss/total: 0.03415  ,  Loss/scores: 0.03415
+[train: 14, 416 / 416] FPS: 78.8 (86.9)  ,  Loss/total: 0.03381  ,  Loss/scores: 0.03381
+[train: 14, 416 / 416] FPS: 78.8 (86.8)  ,  Loss/total: 0.03520  ,  Loss/scores: 0.03520
+[train: 15, 50 / 416] FPS: 51.7 (86.3)  ,  Loss/total: 0.04020  ,  Loss/scores: 0.04020
+[train: 15, 50 / 416] FPS: 51.6 (85.8)  ,  Loss/total: 0.03144  ,  Loss/scores: 0.03144
+[train: 15, 100 / 416] FPS: 64.2 (87.0)  ,  Loss/total: 0.03076  ,  Loss/scores: 0.03076
+[train: 15, 100 / 416] FPS: 64.2 (86.1)  ,  Loss/total: 0.03695  ,  Loss/scores: 0.03695
+[train: 15, 150 / 416] FPS: 69.5 (82.9)  ,  Loss/total: 0.03185  ,  Loss/scores: 0.03185
+[train: 15, 150 / 416] FPS: 69.5 (82.5)  ,  Loss/total: 0.03504  ,  Loss/scores: 0.03504
+[train: 15, 200 / 416] FPS: 72.5 (86.3)  ,  Loss/total: 0.03266  ,  Loss/scores: 0.03266
+[train: 15, 200 / 416] FPS: 72.5 (84.9)  ,  Loss/total: 0.03463  ,  Loss/scores: 0.03463
+[train: 15, 250 / 416] FPS: 74.6 (83.6)  ,  Loss/total: 0.03455  ,  Loss/scores: 0.03455
+[train: 15, 250 / 416] FPS: 74.6 (84.1)  ,  Loss/total: 0.03274  ,  Loss/scores: 0.03274
+[train: 15, 300 / 416] FPS: 76.0 (84.3)  ,  Loss/total: 0.03332  ,  Loss/scores: 0.03332
+[train: 15, 300 / 416] FPS: 76.0 (84.2)  ,  Loss/total: 0.03463  ,  Loss/scores: 0.03463
+[train: 15, 350 / 416] FPS: 76.9 (80.0)  ,  Loss/total: 0.03203  ,  Loss/scores: 0.03203
+[train: 15, 350 / 416] FPS: 76.9 (79.0)  ,  Loss/total: 0.03616  ,  Loss/scores: 0.03616
+[train: 15, 400 / 416] FPS: 78.0 (87.9)  ,  Loss/total: 0.03478  ,  Loss/scores: 0.03478
+[train: 15, 400 / 416] FPS: 78.0 (87.9)  ,  Loss/total: 0.03171  ,  Loss/scores: 0.03171
+[train: 15, 416 / 416] FPS: 78.3 (86.0)  ,  Loss/total: 0.03560  ,  Loss/scores: 0.03560
+[train: 15, 416 / 416] FPS: 78.3 (84.6)  ,  Loss/total: 0.03209  ,  Loss/scores: 0.03209
+[val: 15, 50 / 69] FPS: 45.7 (96.6)  ,  Loss/total: 0.03956  ,  Loss/scores: 0.03956
+[val: 15, 50 / 69] FPS: 45.1 (95.0)  ,  Loss/total: 0.02733  ,  Loss/scores: 0.02733
+[val: 15, 69 / 69] FPS: 53.6 (98.3)  ,  Loss/total: 0.04168  ,  Loss/scores: 0.04168
+[val: 15, 69 / 69] FPS: 52.9 (96.0)  ,  Loss/total: 0.03218  ,  Loss/scores: 0.03218
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 16, 50 / 416] FPS: 54.2 (86.4)  ,  Loss/total: 0.02766  ,  Loss/scores: 0.02766
+[train: 16, 50 / 416] FPS: 51.3 (85.8)  ,  Loss/total: 0.04056  ,  Loss/scores: 0.04056
+[train: 16, 100 / 416] FPS: 65.9 (86.0)  ,  Loss/total: 0.03121  ,  Loss/scores: 0.03121
+[train: 16, 100 / 416] FPS: 63.7 (85.8)  ,  Loss/total: 0.03785  ,  Loss/scores: 0.03785
+[train: 16, 150 / 416] FPS: 70.8 (84.9)  ,  Loss/total: 0.03318  ,  Loss/scores: 0.03318
+[train: 16, 150 / 416] FPS: 69.2 (85.5)  ,  Loss/total: 0.03758  ,  Loss/scores: 0.03758
+[train: 16, 200 / 416] FPS: 73.8 (84.8)  ,  Loss/total: 0.03260  ,  Loss/scores: 0.03260
+[train: 16, 200 / 416] FPS: 72.4 (84.2)  ,  Loss/total: 0.03776  ,  Loss/scores: 0.03776
+[train: 16, 250 / 416] FPS: 75.5 (83.2)  ,  Loss/total: 0.03315  ,  Loss/scores: 0.03315
+[train: 16, 250 / 416] FPS: 74.3 (82.4)  ,  Loss/total: 0.03754  ,  Loss/scores: 0.03754
+[train: 16, 300 / 416] FPS: 76.6 (85.8)  ,  Loss/total: 0.03396  ,  Loss/scores: 0.03396
+[train: 16, 300 / 416] FPS: 75.6 (85.4)  ,  Loss/total: 0.03709  ,  Loss/scores: 0.03709
+[train: 16, 350 / 416] FPS: 77.6 (85.3)  ,  Loss/total: 0.03482  ,  Loss/scores: 0.03482
+[train: 16, 350 / 416] FPS: 76.8 (85.3)  ,  Loss/total: 0.03656  ,  Loss/scores: 0.03656
+[train: 16, 400 / 416] FPS: 78.6 (87.1)  ,  Loss/total: 0.03534  ,  Loss/scores: 0.03534
+[train: 16, 400 / 416] FPS: 77.8 (87.1)  ,  Loss/total: 0.03648  ,  Loss/scores: 0.03648
+[train: 16, 416 / 416] FPS: 78.8 (86.8)  ,  Loss/total: 0.03490  ,  Loss/scores: 0.03490
+[train: 16, 416 / 416] FPS: 78.1 (86.6)  ,  Loss/total: 0.03632  ,  Loss/scores: 0.03632
+[train: 17, 50 / 416] FPS: 50.9 (85.0)  ,  Loss/total: 0.04237  ,  Loss/scores: 0.04237
+[train: 17, 50 / 416] FPS: 50.9 (84.6)  ,  Loss/total: 0.02513  ,  Loss/scores: 0.02513
+[train: 17, 100 / 416] FPS: 63.1 (83.8)  ,  Loss/total: 0.03229  ,  Loss/scores: 0.03229
+[train: 17, 100 / 416] FPS: 63.1 (83.7)  ,  Loss/total: 0.03740  ,  Loss/scores: 0.03740
+[train: 17, 150 / 416] FPS: 68.0 (84.3)  ,  Loss/total: 0.03572  ,  Loss/scores: 0.03572
+[train: 17, 150 / 416] FPS: 68.0 (83.4)  ,  Loss/total: 0.02971  ,  Loss/scores: 0.02971
+[train: 17, 200 / 416] FPS: 71.2 (85.0)  ,  Loss/total: 0.03800  ,  Loss/scores: 0.03800
+[train: 17, 200 / 416] FPS: 71.2 (84.4)  ,  Loss/total: 0.03061  ,  Loss/scores: 0.03061
+[train: 17, 250 / 416] FPS: 73.3 (82.7)  ,  Loss/total: 0.03721  ,  Loss/scores: 0.03721
+[train: 17, 250 / 416] FPS: 73.3 (82.4)  ,  Loss/total: 0.02955  ,  Loss/scores: 0.02955
+[train: 17, 300 / 416] FPS: 74.8 (85.2)  ,  Loss/total: 0.03630  ,  Loss/scores: 0.03630
+[train: 17, 300 / 416] FPS: 74.8 (84.2)  ,  Loss/total: 0.02961  ,  Loss/scores: 0.02961
+[train: 17, 350 / 416] FPS: 75.9 (85.4)  ,  Loss/total: 0.03160  ,  Loss/scores: 0.03160
+[train: 17, 350 / 416] FPS: 75.9 (85.0)  ,  Loss/total: 0.03436  ,  Loss/scores: 0.03436
+[train: 17, 400 / 416] FPS: 77.0 (84.3)  ,  Loss/total: 0.03159  ,  Loss/scores: 0.03159
+[train: 17, 400 / 416] FPS: 77.0 (82.4)  ,  Loss/total: 0.03456  ,  Loss/scores: 0.03456
+[train: 17, 416 / 416] FPS: 77.4 (87.3)  ,  Loss/total: 0.03423  ,  Loss/scores: 0.03423
+[train: 17, 416 / 416] FPS: 77.4 (87.3)  ,  Loss/total: 0.03106  ,  Loss/scores: 0.03106
+[train: 18, 50 / 416] FPS: 53.1 (83.9)  ,  Loss/total: 0.03756  ,  Loss/scores: 0.03756
+[train: 18, 50 / 416] FPS: 53.1 (83.8)  ,  Loss/total: 0.03078  ,  Loss/scores: 0.03078
+[train: 18, 100 / 416] FPS: 65.1 (83.9)  ,  Loss/total: 0.03338  ,  Loss/scores: 0.03338
+[train: 18, 100 / 416] FPS: 65.0 (84.2)  ,  Loss/total: 0.03513  ,  Loss/scores: 0.03513
+[train: 18, 150 / 416] FPS: 70.3 (79.9)  ,  Loss/total: 0.03641  ,  Loss/scores: 0.03641
+[train: 18, 150 / 416] FPS: 70.3 (79.5)  ,  Loss/total: 0.03592  ,  Loss/scores: 0.03592
+[train: 18, 200 / 416] FPS: 73.4 (84.3)  ,  Loss/total: 0.03583  ,  Loss/scores: 0.03583
+[train: 18, 200 / 416] FPS: 73.4 (83.6)  ,  Loss/total: 0.03581  ,  Loss/scores: 0.03581
+[train: 18, 250 / 416] FPS: 75.2 (83.5)  ,  Loss/total: 0.03561  ,  Loss/scores: 0.03561
+[train: 18, 250 / 416] FPS: 75.2 (83.6)  ,  Loss/total: 0.03461  ,  Loss/scores: 0.03461
+[train: 18, 300 / 416] FPS: 76.5 (82.5)  ,  Loss/total: 0.03689  ,  Loss/scores: 0.03689
+[train: 18, 300 / 416] FPS: 76.5 (81.1)  ,  Loss/total: 0.03374  ,  Loss/scores: 0.03374
+[train: 18, 350 / 416] FPS: 77.6 (83.2)  ,  Loss/total: 0.03681  ,  Loss/scores: 0.03681
+[train: 18, 350 / 416] FPS: 77.6 (82.5)  ,  Loss/total: 0.03523  ,  Loss/scores: 0.03523
+[train: 18, 400 / 416] FPS: 78.6 (87.6)  ,  Loss/total: 0.03395  ,  Loss/scores: 0.03395
+[train: 18, 400 / 416] FPS: 78.6 (87.6)  ,  Loss/total: 0.03613  ,  Loss/scores: 0.03613
+[train: 18, 416 / 416] FPS: 78.9 (88.1)  ,  Loss/total: 0.03370  ,  Loss/scores: 0.03370
+[train: 18, 416 / 416] FPS: 78.9 (88.1)  ,  Loss/total: 0.03640  ,  Loss/scores: 0.03640
+[train: 19, 50 / 416] FPS: 51.1 (82.7)  ,  Loss/total: 0.02805  ,  Loss/scores: 0.02805
+[train: 19, 50 / 416] FPS: 51.1 (82.5)  ,  Loss/total: 0.03828  ,  Loss/scores: 0.03828
+[train: 19, 100 / 416] FPS: 63.6 (83.6)  ,  Loss/total: 0.03505  ,  Loss/scores: 0.03505
+[train: 19, 100 / 416] FPS: 63.6 (83.2)  ,  Loss/total: 0.02515  ,  Loss/scores: 0.02515
+[train: 19, 150 / 416] FPS: 69.0 (85.3)  ,  Loss/total: 0.03473  ,  Loss/scores: 0.03473
+[train: 19, 150 / 416] FPS: 69.0 (84.8)  ,  Loss/total: 0.02976  ,  Loss/scores: 0.02976
+[train: 19, 200 / 416] FPS: 72.2 (83.3)  ,  Loss/total: 0.03406  ,  Loss/scores: 0.03406
+[train: 19, 200 / 416] FPS: 72.2 (82.1)  ,  Loss/total: 0.03107  ,  Loss/scores: 0.03107
+[train: 19, 250 / 416] FPS: 74.3 (82.0)  ,  Loss/total: 0.03365  ,  Loss/scores: 0.03365
+[train: 19, 250 / 416] FPS: 74.3 (82.1)  ,  Loss/total: 0.03116  ,  Loss/scores: 0.03116
+[train: 19, 300 / 416] FPS: 75.7 (85.8)  ,  Loss/total: 0.03366  ,  Loss/scores: 0.03366
+[train: 19, 300 / 416] FPS: 75.7 (84.8)  ,  Loss/total: 0.03093  ,  Loss/scores: 0.03093
+[train: 19, 350 / 416] FPS: 76.7 (85.7)  ,  Loss/total: 0.03194  ,  Loss/scores: 0.03194
+[train: 19, 350 / 416] FPS: 76.7 (84.3)  ,  Loss/total: 0.03274  ,  Loss/scores: 0.03274
+[train: 19, 400 / 416] FPS: 77.8 (88.1)  ,  Loss/total: 0.03212  ,  Loss/scores: 0.03212
+[train: 19, 400 / 416] FPS: 77.8 (88.1)  ,  Loss/total: 0.03204  ,  Loss/scores: 0.03204
+[train: 19, 416 / 416] FPS: 78.0 (86.6)  ,  Loss/total: 0.03223  ,  Loss/scores: 0.03223
+[train: 19, 416 / 416] FPS: 78.0 (85.3)  ,  Loss/total: 0.03131  ,  Loss/scores: 0.03131
+[train: 20, 50 / 416] FPS: 49.3 (84.4)  ,  Loss/total: 0.02614  ,  Loss/scores: 0.02614
+[train: 20, 50 / 416] FPS: 49.3 (83.8)  ,  Loss/total: 0.03877  ,  Loss/scores: 0.03877
+[train: 20, 100 / 416] FPS: 62.2 (83.5)  ,  Loss/total: 0.03726  ,  Loss/scores: 0.03726
+[train: 20, 100 / 416] FPS: 62.2 (83.4)  ,  Loss/total: 0.03207  ,  Loss/scores: 0.03207
+[train: 20, 150 / 416] FPS: 68.0 (83.6)  ,  Loss/total: 0.03402  ,  Loss/scores: 0.03402
+[train: 20, 150 / 416] FPS: 68.0 (83.3)  ,  Loss/total: 0.03925  ,  Loss/scores: 0.03925
+[train: 20, 200 / 416] FPS: 71.2 (83.9)  ,  Loss/total: 0.03346  ,  Loss/scores: 0.03346
+[train: 20, 200 / 416] FPS: 71.2 (82.7)  ,  Loss/total: 0.03809  ,  Loss/scores: 0.03809
+[train: 20, 250 / 416] FPS: 73.4 (83.4)  ,  Loss/total: 0.03293  ,  Loss/scores: 0.03293
+[train: 20, 250 / 416] FPS: 73.4 (83.5)  ,  Loss/total: 0.03686  ,  Loss/scores: 0.03686
+[train: 20, 300 / 416] FPS: 75.0 (82.8)  ,  Loss/total: 0.03363  ,  Loss/scores: 0.03363
+[train: 20, 300 / 416] FPS: 75.0 (82.9)  ,  Loss/total: 0.03651  ,  Loss/scores: 0.03651
+[train: 20, 350 / 416] FPS: 76.1 (86.0)  ,  Loss/total: 0.03275  ,  Loss/scores: 0.03275
+[train: 20, 350 / 416] FPS: 76.1 (86.0)  ,  Loss/total: 0.03700  ,  Loss/scores: 0.03700
+[train: 20, 400 / 416] FPS: 77.3 (88.3)  ,  Loss/total: 0.03178  ,  Loss/scores: 0.03178
+[train: 20, 400 / 416] FPS: 77.3 (88.3)  ,  Loss/total: 0.03671  ,  Loss/scores: 0.03671
+[train: 20, 416 / 416] FPS: 77.6 (88.7)  ,  Loss/total: 0.03138  ,  Loss/scores: 0.03138
+[train: 20, 416 / 416] FPS: 77.6 (88.7)  ,  Loss/total: 0.03654  ,  Loss/scores: 0.03654
+[val: 20, 50 / 69] FPS: 48.9 (96.7)  ,  Loss/total: 0.04817  ,  Loss/scores: 0.04817
+[val: 20, 50 / 69] FPS: 47.2 (99.3)  ,  Loss/total: 0.05692  ,  Loss/scores: 0.05692
+[val: 20, 69 / 69] FPS: 56.6 (96.2)  ,  Loss/total: 0.05148  ,  Loss/scores: 0.05148
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[val: 20, 69 / 69] FPS: 55.1 (100.3)  ,  Loss/total: 0.05099  ,  Loss/scores: 0.05099
+[train: 21, 50 / 416] FPS: 49.0 (84.0)  ,  Loss/total: 0.03667  ,  Loss/scores: 0.03667
+[train: 21, 50 / 416] FPS: 49.5 (84.8)  ,  Loss/total: 0.04532  ,  Loss/scores: 0.04532
+[train: 21, 100 / 416] FPS: 61.9 (80.4)  ,  Loss/total: 0.03951  ,  Loss/scores: 0.03951
+[train: 21, 100 / 416] FPS: 62.2 (79.7)  ,  Loss/total: 0.04242  ,  Loss/scores: 0.04242
+[train: 21, 150 / 416] FPS: 68.0 (83.3)  ,  Loss/total: 0.03910  ,  Loss/scores: 0.03910
+[train: 21, 150 / 416] FPS: 67.7 (83.5)  ,  Loss/total: 0.03535  ,  Loss/scores: 0.03535
+[train: 21, 200 / 416] FPS: 71.2 (85.0)  ,  Loss/total: 0.03890  ,  Loss/scores: 0.03890
+[train: 21, 200 / 416] FPS: 71.0 (84.4)  ,  Loss/total: 0.03128  ,  Loss/scores: 0.03128
+[train: 21, 250 / 416] FPS: 73.5 (83.9)  ,  Loss/total: 0.03726  ,  Loss/scores: 0.03726
+[train: 21, 250 / 416] FPS: 73.3 (84.3)  ,  Loss/total: 0.03098  ,  Loss/scores: 0.03098
+[train: 21, 300 / 416] FPS: 75.0 (83.9)  ,  Loss/total: 0.03515  ,  Loss/scores: 0.03515
+[train: 21, 300 / 416] FPS: 74.8 (83.9)  ,  Loss/total: 0.03070  ,  Loss/scores: 0.03070
+[train: 21, 350 / 416] FPS: 76.1 (83.5)  ,  Loss/total: 0.03327  ,  Loss/scores: 0.03327
+[train: 21, 350 / 416] FPS: 76.0 (84.0)  ,  Loss/total: 0.03123  ,  Loss/scores: 0.03123
+[train: 21, 400 / 416] FPS: 77.1 (87.8)  ,  Loss/total: 0.03067  ,  Loss/scores: 0.03067
+[train: 21, 400 / 416] FPS: 77.3 (87.8)  ,  Loss/total: 0.03291  ,  Loss/scores: 0.03291
+[train: 21, 416 / 416] FPS: 77.6 (87.7)  ,  Loss/total: 0.03210  ,  Loss/scores: 0.03210
+[train: 21, 416 / 416] FPS: 77.5 (87.7)  ,  Loss/total: 0.03093  ,  Loss/scores: 0.03093
+[train: 22, 50 / 416] FPS: 39.7 (83.2)  ,  Loss/total: 0.02897  ,  Loss/scores: 0.02897
+[train: 22, 50 / 416] FPS: 39.7 (82.3)  ,  Loss/total: 0.03349  ,  Loss/scores: 0.03349
+[train: 22, 100 / 416] FPS: 53.8 (85.3)  ,  Loss/total: 0.03334  ,  Loss/scores: 0.03334
+[train: 22, 100 / 416] FPS: 53.8 (85.2)  ,  Loss/total: 0.03118  ,  Loss/scores: 0.03118
+[train: 22, 150 / 416] FPS: 60.0 (17.6)  ,  Loss/total: 0.03301  ,  Loss/scores: 0.03301
+[train: 22, 150 / 416] FPS: 60.0 (17.6)  ,  Loss/total: 0.03083  ,  Loss/scores: 0.03083
+[train: 22, 200 / 416] FPS: 64.5 (83.1)  ,  Loss/total: 0.03201  ,  Loss/scores: 0.03201
+[train: 22, 200 / 416] FPS: 64.5 (82.8)  ,  Loss/total: 0.02959  ,  Loss/scores: 0.02959
+[train: 22, 250 / 416] FPS: 67.6 (81.9)  ,  Loss/total: 0.02942  ,  Loss/scores: 0.02942
+[train: 22, 250 / 416] FPS: 67.6 (81.8)  ,  Loss/total: 0.03053  ,  Loss/scores: 0.03053
+[train: 22, 300 / 416] FPS: 69.8 (82.0)  ,  Loss/total: 0.03033  ,  Loss/scores: 0.03033
+[train: 22, 300 / 416] FPS: 69.8 (81.7)  ,  Loss/total: 0.02896  ,  Loss/scores: 0.02896
+[train: 22, 350 / 416] FPS: 71.5 (84.6)  ,  Loss/total: 0.02988  ,  Loss/scores: 0.02988
+[train: 22, 350 / 416] FPS: 71.5 (85.3)  ,  Loss/total: 0.02785  ,  Loss/scores: 0.02785
+[train: 22, 400 / 416] FPS: 73.0 (85.8)  ,  Loss/total: 0.02851  ,  Loss/scores: 0.02851
+[train: 22, 400 / 416] FPS: 73.0 (85.0)  ,  Loss/total: 0.03022  ,  Loss/scores: 0.03022
+[train: 22, 416 / 416] FPS: 73.5 (88.0)  ,  Loss/total: 0.02903  ,  Loss/scores: 0.02903
+[train: 22, 416 / 416] FPS: 73.5 (87.6)  ,  Loss/total: 0.03055  ,  Loss/scores: 0.03055
+[train: 23, 50 / 416] FPS: 50.9 (86.7)  ,  Loss/total: 0.02928  ,  Loss/scores: 0.02928
+[train: 23, 50 / 416] FPS: 50.9 (85.0)  ,  Loss/total: 0.02155  ,  Loss/scores: 0.02155
+[train: 23, 100 / 416] FPS: 63.4 (82.6)  ,  Loss/total: 0.02669  ,  Loss/scores: 0.02669
+[train: 23, 100 / 416] FPS: 63.4 (82.3)  ,  Loss/total: 0.03137  ,  Loss/scores: 0.03137
+[train: 23, 150 / 416] FPS: 69.1 (87.0)  ,  Loss/total: 0.02816  ,  Loss/scores: 0.02816
+[train: 23, 150 / 416] FPS: 69.1 (86.4)  ,  Loss/total: 0.02621  ,  Loss/scores: 0.02621
+[train: 23, 200 / 416] FPS: 72.3 (81.5)  ,  Loss/total: 0.02778  ,  Loss/scores: 0.02778
+[train: 23, 200 / 416] FPS: 72.3 (81.4)  ,  Loss/total: 0.02580  ,  Loss/scores: 0.02580
+[train: 23, 250 / 416] FPS: 74.4 (84.9)  ,  Loss/total: 0.02777  ,  Loss/scores: 0.02777
+[train: 23, 250 / 416] FPS: 74.4 (86.3)  ,  Loss/total: 0.02576  ,  Loss/scores: 0.02576
+[train: 23, 300 / 416] FPS: 75.8 (86.0)  ,  Loss/total: 0.02672  ,  Loss/scores: 0.02672
+[train: 23, 300 / 416] FPS: 75.8 (85.2)  ,  Loss/total: 0.02638  ,  Loss/scores: 0.02638
+[train: 23, 350 / 416] FPS: 77.0 (86.3)  ,  Loss/total: 0.02595  ,  Loss/scores: 0.02595
+[train: 23, 350 / 416] FPS: 77.0 (86.0)  ,  Loss/total: 0.02729  ,  Loss/scores: 0.02729
+[train: 23, 400 / 416] FPS: 78.0 (85.7)  ,  Loss/total: 0.02626  ,  Loss/scores: 0.02626
+[train: 23, 400 / 416] FPS: 78.0 (84.3)  ,  Loss/total: 0.02761  ,  Loss/scores: 0.02761
+[train: 23, 416 / 416] FPS: 78.4 (87.0)  ,  Loss/total: 0.02808  ,  Loss/scores: 0.02808
+[train: 23, 416 / 416] FPS: 78.4 (87.0)  ,  Loss/total: 0.02618  ,  Loss/scores: 0.02618
+[train: 24, 50 / 416] FPS: 48.5 (84.2)  ,  Loss/total: 0.03026  ,  Loss/scores: 0.03026
+[train: 24, 50 / 416] FPS: 48.5 (84.2)  ,  Loss/total: 0.02991  ,  Loss/scores: 0.02991
+[train: 24, 100 / 416] FPS: 61.6 (85.6)  ,  Loss/total: 0.02976  ,  Loss/scores: 0.02976
+[train: 24, 100 / 416] FPS: 61.6 (84.8)  ,  Loss/total: 0.03367  ,  Loss/scores: 0.03367
+[train: 24, 150 / 416] FPS: 67.5 (86.5)  ,  Loss/total: 0.03533  ,  Loss/scores: 0.03533
+[train: 24, 150 / 416] FPS: 67.5 (87.4)  ,  Loss/total: 0.02719  ,  Loss/scores: 0.02719
+[train: 24, 200 / 416] FPS: 71.0 (84.1)  ,  Loss/total: 0.02930  ,  Loss/scores: 0.02930
+[train: 24, 200 / 416] FPS: 71.0 (82.7)  ,  Loss/total: 0.03201  ,  Loss/scores: 0.03201
+[train: 24, 250 / 416] FPS: 73.1 (84.5)  ,  Loss/total: 0.02987  ,  Loss/scores: 0.02987
+[train: 24, 250 / 416] FPS: 73.1 (84.2)  ,  Loss/total: 0.03065  ,  Loss/scores: 0.03065
+[train: 24, 300 / 416] FPS: 74.7 (85.8)  ,  Loss/total: 0.02950  ,  Loss/scores: 0.02950
+[train: 24, 300 / 416] FPS: 74.7 (85.6)  ,  Loss/total: 0.02912  ,  Loss/scores: 0.02912
+[train: 24, 350 / 416] FPS: 75.9 (86.1)  ,  Loss/total: 0.02930  ,  Loss/scores: 0.02930
+[train: 24, 350 / 416] FPS: 75.9 (86.4)  ,  Loss/total: 0.02879  ,  Loss/scores: 0.02879
+[train: 24, 400 / 416] FPS: 77.1 (86.7)  ,  Loss/total: 0.02906  ,  Loss/scores: 0.02906
+[train: 24, 400 / 416] FPS: 77.1 (85.8)  ,  Loss/total: 0.02971  ,  Loss/scores: 0.02971
+[train: 24, 416 / 416] FPS: 77.4 (86.7)  ,  Loss/total: 0.02856  ,  Loss/scores: 0.02856
+[train: 24, 416 / 416] FPS: 77.4 (86.7)  ,  Loss/total: 0.02952  ,  Loss/scores: 0.02952
+[train: 25, 50 / 416] FPS: 49.1 (85.7)  ,  Loss/total: 0.02652  ,  Loss/scores: 0.02652
+[train: 25, 50 / 416] FPS: 49.1 (85.4)  ,  Loss/total: 0.02935  ,  Loss/scores: 0.02935
+[train: 25, 100 / 416] FPS: 61.9 (84.2)  ,  Loss/total: 0.02654  ,  Loss/scores: 0.02654
+[train: 25, 100 / 416] FPS: 61.9 (84.1)  ,  Loss/total: 0.02865  ,  Loss/scores: 0.02865
+[train: 25, 150 / 416] FPS: 67.7 (86.5)  ,  Loss/total: 0.02745  ,  Loss/scores: 0.02745
+[train: 25, 150 / 416] FPS: 67.7 (86.2)  ,  Loss/total: 0.02645  ,  Loss/scores: 0.02645
+[train: 25, 200 / 416] FPS: 71.1 (85.0)  ,  Loss/total: 0.02762  ,  Loss/scores: 0.02762
+[train: 25, 200 / 416] FPS: 71.1 (85.4)  ,  Loss/total: 0.02773  ,  Loss/scores: 0.02773
+[train: 25, 250 / 416] FPS: 73.3 (82.9)  ,  Loss/total: 0.02658  ,  Loss/scores: 0.02658
+[train: 25, 250 / 416] FPS: 73.3 (82.6)  ,  Loss/total: 0.02712  ,  Loss/scores: 0.02712
+[train: 25, 300 / 416] FPS: 74.8 (83.2)  ,  Loss/total: 0.02667  ,  Loss/scores: 0.02667
+[train: 25, 300 / 416] FPS: 74.8 (83.2)  ,  Loss/total: 0.02784  ,  Loss/scores: 0.02784
+[train: 25, 350 / 416] FPS: 75.9 (85.7)  ,  Loss/total: 0.02828  ,  Loss/scores: 0.02828
+[train: 25, 350 / 416] FPS: 75.9 (84.0)  ,  Loss/total: 0.02743  ,  Loss/scores: 0.02743
+[train: 25, 400 / 416] FPS: 77.1 (87.4)  ,  Loss/total: 0.02709  ,  Loss/scores: 0.02709
+[train: 25, 400 / 416] FPS: 77.1 (87.3)  ,  Loss/total: 0.02657  ,  Loss/scores: 0.02657
+[train: 25, 416 / 416] FPS: 77.5 (85.9)  ,  Loss/total: 0.02682  ,  Loss/scores: 0.02682
+[train: 25, 416 / 416] FPS: 77.5 (86.0)  ,  Loss/total: 0.02755  ,  Loss/scores: 0.02755
+[val: 25, 50 / 69] FPS: 41.8 (100.2)  ,  Loss/total: 0.03977  ,  Loss/scores: 0.03977
+[val: 25, 50 / 69] FPS: 39.6 (96.8)  ,  Loss/total: 0.04551  ,  Loss/scores: 0.04551
+[val: 25, 69 / 69] FPS: 49.3 (99.8)  ,  Loss/total: 0.03310  ,  Loss/scores: 0.03310
+[val: 25, 69 / 69] FPS: 47.3 (95.7)  ,  Loss/total: 0.04731  ,  Loss/scores: 0.04731
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 26, 50 / 416] FPS: 47.6 (84.8)  ,  Loss/total: 0.03273  ,  Loss/scores: 0.03273
+[train: 26, 50 / 416] FPS: 51.8 (85.0)  ,  Loss/total: 0.03330  ,  Loss/scores: 0.03330
+[train: 26, 100 / 416] FPS: 60.8 (84.5)  ,  Loss/total: 0.02966  ,  Loss/scores: 0.02966
+[train: 26, 100 / 416] FPS: 64.1 (84.3)  ,  Loss/total: 0.02990  ,  Loss/scores: 0.02990
+[train: 26, 150 / 416] FPS: 69.4 (85.5)  ,  Loss/total: 0.02820  ,  Loss/scores: 0.02820
+[train: 26, 150 / 416] FPS: 66.8 (84.9)  ,  Loss/total: 0.02635  ,  Loss/scores: 0.02635
+[train: 26, 200 / 416] FPS: 70.4 (79.7)  ,  Loss/total: 0.02676  ,  Loss/scores: 0.02676
+[train: 26, 200 / 416] FPS: 72.6 (79.3)  ,  Loss/total: 0.02832  ,  Loss/scores: 0.02832
+[train: 26, 250 / 416] FPS: 74.5 (79.2)  ,  Loss/total: 0.02890  ,  Loss/scores: 0.02890
+[train: 26, 250 / 416] FPS: 72.6 (79.7)  ,  Loss/total: 0.02504  ,  Loss/scores: 0.02504
+[train: 26, 300 / 416] FPS: 74.3 (83.9)  ,  Loss/total: 0.02506  ,  Loss/scores: 0.02506
+[train: 26, 300 / 416] FPS: 75.9 (83.9)  ,  Loss/total: 0.02795  ,  Loss/scores: 0.02795
+[train: 26, 350 / 416] FPS: 75.5 (85.0)  ,  Loss/total: 0.02624  ,  Loss/scores: 0.02624
+[train: 26, 350 / 416] FPS: 77.0 (84.3)  ,  Loss/total: 0.02866  ,  Loss/scores: 0.02866
+[train: 26, 400 / 416] FPS: 76.7 (86.1)  ,  Loss/total: 0.02597  ,  Loss/scores: 0.02597
+[train: 26, 400 / 416] FPS: 78.0 (86.1)  ,  Loss/total: 0.02882  ,  Loss/scores: 0.02882
+[train: 26, 416 / 416] FPS: 78.3 (88.1)  ,  Loss/total: 0.02910  ,  Loss/scores: 0.02910
+[train: 26, 416 / 416] FPS: 77.1 (88.0)  ,  Loss/total: 0.02588  ,  Loss/scores: 0.02588
+[train: 27, 50 / 416] FPS: 49.7 (85.6)  ,  Loss/total: 0.02491  ,  Loss/scores: 0.02491
+[train: 27, 50 / 416] FPS: 49.7 (85.5)  ,  Loss/total: 0.02763  ,  Loss/scores: 0.02763
+[train: 27, 100 / 416] FPS: 62.3 (85.6)  ,  Loss/total: 0.02479  ,  Loss/scores: 0.02479
+[train: 27, 100 / 416] FPS: 62.3 (84.7)  ,  Loss/total: 0.02600  ,  Loss/scores: 0.02600
+[train: 27, 150 / 416] FPS: 68.3 (84.9)  ,  Loss/total: 0.02478  ,  Loss/scores: 0.02478
+[train: 27, 150 / 416] FPS: 68.3 (84.4)  ,  Loss/total: 0.02534  ,  Loss/scores: 0.02534
+[train: 27, 200 / 416] FPS: 71.6 (86.0)  ,  Loss/total: 0.02434  ,  Loss/scores: 0.02434
+[train: 27, 200 / 416] FPS: 71.6 (84.6)  ,  Loss/total: 0.02407  ,  Loss/scores: 0.02407
+[train: 27, 250 / 416] FPS: 73.8 (83.9)  ,  Loss/total: 0.02398  ,  Loss/scores: 0.02398
+[train: 27, 250 / 416] FPS: 73.8 (82.9)  ,  Loss/total: 0.02484  ,  Loss/scores: 0.02484
+[train: 27, 300 / 416] FPS: 75.4 (84.1)  ,  Loss/total: 0.02484  ,  Loss/scores: 0.02484
+[train: 27, 300 / 416] FPS: 75.4 (82.3)  ,  Loss/total: 0.02520  ,  Loss/scores: 0.02520
+[train: 27, 350 / 416] FPS: 76.4 (84.9)  ,  Loss/total: 0.02485  ,  Loss/scores: 0.02485
+[train: 27, 350 / 416] FPS: 76.4 (84.8)  ,  Loss/total: 0.02522  ,  Loss/scores: 0.02522
+[train: 27, 400 / 416] FPS: 77.6 (86.8)  ,  Loss/total: 0.02525  ,  Loss/scores: 0.02525
+[train: 27, 400 / 416] FPS: 77.6 (86.8)  ,  Loss/total: 0.02566  ,  Loss/scores: 0.02566
+[train: 27, 416 / 416] FPS: 77.9 (87.2)  ,  Loss/total: 0.02508  ,  Loss/scores: 0.02508
+[train: 27, 416 / 416] FPS: 77.9 (87.1)  ,  Loss/total: 0.02568  ,  Loss/scores: 0.02568
+[train: 28, 50 / 416] FPS: 50.2 (83.8)  ,  Loss/total: 0.02602  ,  Loss/scores: 0.02602
+[train: 28, 50 / 416] FPS: 50.2 (83.7)  ,  Loss/total: 0.04449  ,  Loss/scores: 0.04449
+[train: 28, 100 / 416] FPS: 62.9 (82.6)  ,  Loss/total: 0.02402  ,  Loss/scores: 0.02402
+[train: 28, 100 / 416] FPS: 62.9 (82.1)  ,  Loss/total: 0.03860  ,  Loss/scores: 0.03860
+[train: 28, 150 / 416] FPS: 68.6 (84.4)  ,  Loss/total: 0.03658  ,  Loss/scores: 0.03658
+[train: 28, 150 / 416] FPS: 68.6 (83.6)  ,  Loss/total: 0.02519  ,  Loss/scores: 0.02519
+[train: 28, 200 / 416] FPS: 71.7 (86.9)  ,  Loss/total: 0.02590  ,  Loss/scores: 0.02590
+[train: 28, 200 / 416] FPS: 71.7 (86.3)  ,  Loss/total: 0.03582  ,  Loss/scores: 0.03582
+[train: 28, 250 / 416] FPS: 73.9 (83.8)  ,  Loss/total: 0.02785  ,  Loss/scores: 0.02785
+[train: 28, 250 / 416] FPS: 73.9 (84.7)  ,  Loss/total: 0.03381  ,  Loss/scores: 0.03381
+[train: 28, 300 / 416] FPS: 75.4 (88.0)  ,  Loss/total: 0.03204  ,  Loss/scores: 0.03204
+[train: 28, 300 / 416] FPS: 75.4 (87.0)  ,  Loss/total: 0.02712  ,  Loss/scores: 0.02712
+[train: 28, 350 / 416] FPS: 76.5 (84.2)  ,  Loss/total: 0.02791  ,  Loss/scores: 0.02791
+[train: 28, 350 / 416] FPS: 76.5 (85.0)  ,  Loss/total: 0.03108  ,  Loss/scores: 0.03108
+[train: 28, 400 / 416] FPS: 77.6 (88.4)  ,  Loss/total: 0.02956  ,  Loss/scores: 0.02956
+[train: 28, 400 / 416] FPS: 77.6 (89.5)  ,  Loss/total: 0.02733  ,  Loss/scores: 0.02733
+[train: 28, 416 / 416] FPS: 77.9 (88.3)  ,  Loss/total: 0.03004  ,  Loss/scores: 0.03004
+[train: 28, 416 / 416] FPS: 77.9 (88.3)  ,  Loss/total: 0.02705  ,  Loss/scores: 0.02705
+[train: 29, 50 / 416] FPS: 51.2 (85.9)  ,  Loss/total: 0.03776  ,  Loss/scores: 0.03776
+[train: 29, 50 / 416] FPS: 51.2 (86.2)  ,  Loss/total: 0.01621  ,  Loss/scores: 0.01621
+[train: 29, 100 / 416] FPS: 63.4 (84.7)  ,  Loss/total: 0.02832  ,  Loss/scores: 0.02832
+[train: 29, 100 / 416] FPS: 63.4 (84.6)  ,  Loss/total: 0.02133  ,  Loss/scores: 0.02133
+[train: 29, 150 / 416] FPS: 69.0 (86.2)  ,  Loss/total: 0.03023  ,  Loss/scores: 0.03023
+[train: 29, 150 / 416] FPS: 69.0 (86.0)  ,  Loss/total: 0.02179  ,  Loss/scores: 0.02179
+[train: 29, 200 / 416] FPS: 72.2 (77.7)  ,  Loss/total: 0.02251  ,  Loss/scores: 0.02251
+[train: 29, 200 / 416] FPS: 72.2 (76.7)  ,  Loss/total: 0.02942  ,  Loss/scores: 0.02942
+[train: 29, 250 / 416] FPS: 74.2 (83.6)  ,  Loss/total: 0.02877  ,  Loss/scores: 0.02877
+[train: 29, 250 / 416] FPS: 74.2 (82.2)  ,  Loss/total: 0.02299  ,  Loss/scores: 0.02299
+[train: 29, 300 / 416] FPS: 75.6 (85.6)  ,  Loss/total: 0.02436  ,  Loss/scores: 0.02436
+[train: 29, 300 / 416] FPS: 75.6 (84.9)  ,  Loss/total: 0.02946  ,  Loss/scores: 0.02946
+[train: 29, 350 / 416] FPS: 76.8 (88.2)  ,  Loss/total: 0.02865  ,  Loss/scores: 0.02865
+[train: 29, 350 / 416] FPS: 76.8 (88.2)  ,  Loss/total: 0.02479  ,  Loss/scores: 0.02479
+[train: 29, 400 / 416] FPS: 77.9 (88.9)  ,  Loss/total: 0.02818  ,  Loss/scores: 0.02818
+[train: 29, 400 / 416] FPS: 77.9 (88.9)  ,  Loss/total: 0.02555  ,  Loss/scores: 0.02555
+[train: 29, 416 / 416] FPS: 78.2 (86.2)  ,  Loss/total: 0.02794  ,  Loss/scores: 0.02794
+[train: 29, 416 / 416] FPS: 78.2 (86.2)  ,  Loss/total: 0.02552  ,  Loss/scores: 0.02552
+[train: 30, 50 / 416] FPS: 51.2 (84.0)  ,  Loss/total: 0.02817  ,  Loss/scores: 0.02817
+[train: 30, 50 / 416] FPS: 51.2 (83.6)  ,  Loss/total: 0.02868  ,  Loss/scores: 0.02868
+[train: 30, 100 / 416] FPS: 63.9 (85.1)  ,  Loss/total: 0.02698  ,  Loss/scores: 0.02698
+[train: 30, 100 / 416] FPS: 63.9 (84.8)  ,  Loss/total: 0.02631  ,  Loss/scores: 0.02631
+[train: 30, 150 / 416] FPS: 69.4 (82.8)  ,  Loss/total: 0.02804  ,  Loss/scores: 0.02804
+[train: 30, 150 / 416] FPS: 69.4 (82.4)  ,  Loss/total: 0.02536  ,  Loss/scores: 0.02536
+[train: 30, 200 / 416] FPS: 72.5 (85.8)  ,  Loss/total: 0.02432  ,  Loss/scores: 0.02432
+[train: 30, 200 / 416] FPS: 72.5 (85.8)  ,  Loss/total: 0.02856  ,  Loss/scores: 0.02856
+[train: 30, 250 / 416] FPS: 74.6 (82.4)  ,  Loss/total: 0.02632  ,  Loss/scores: 0.02632
+[train: 30, 250 / 416] FPS: 74.6 (81.7)  ,  Loss/total: 0.02922  ,  Loss/scores: 0.02922
+[train: 30, 300 / 416] FPS: 76.0 (83.2)  ,  Loss/total: 0.02668  ,  Loss/scores: 0.02668
+[train: 30, 300 / 416] FPS: 76.0 (82.3)  ,  Loss/total: 0.02786  ,  Loss/scores: 0.02786
+[train: 30, 350 / 416] FPS: 77.0 (85.6)  ,  Loss/total: 0.02824  ,  Loss/scores: 0.02824
+[train: 30, 350 / 416] FPS: 77.0 (84.9)  ,  Loss/total: 0.02603  ,  Loss/scores: 0.02603
+[train: 30, 400 / 416] FPS: 78.1 (85.2)  ,  Loss/total: 0.02677  ,  Loss/scores: 0.02677
+[train: 30, 400 / 416] FPS: 78.1 (85.2)  ,  Loss/total: 0.02776  ,  Loss/scores: 0.02776
+[train: 30, 416 / 416] FPS: 78.4 (86.3)  ,  Loss/total: 0.02721  ,  Loss/scores: 0.02721
+[train: 30, 416 / 416] FPS: 78.4 (86.3)  ,  Loss/total: 0.02747  ,  Loss/scores: 0.02747
+[val: 30, 50 / 69] FPS: 46.5 (97.0)  ,  Loss/total: 0.04691  ,  Loss/scores: 0.04691
+[val: 30, 50 / 69] FPS: 45.7 (100.3)  ,  Loss/total: 0.03974  ,  Loss/scores: 0.03974
+[val: 30, 69 / 69] FPS: 54.2 (95.8)  ,  Loss/total: 0.04718  ,  Loss/scores: 0.04718
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[val: 30, 69 / 69] FPS: 53.6 (90.8)  ,  Loss/total: 0.03638  ,  Loss/scores: 0.03638
+[train: 31, 50 / 416] FPS: 53.1 (85.9)  ,  Loss/total: 0.02553  ,  Loss/scores: 0.02553
+[train: 31, 50 / 416] FPS: 52.6 (85.5)  ,  Loss/total: 0.03278  ,  Loss/scores: 0.03278
+[train: 31, 100 / 416] FPS: 64.7 (79.6)  ,  Loss/total: 0.03315  ,  Loss/scores: 0.03315
+[train: 31, 100 / 416] FPS: 65.1 (78.1)  ,  Loss/total: 0.02675  ,  Loss/scores: 0.02675
+[train: 31, 150 / 416] FPS: 70.2 (85.9)  ,  Loss/total: 0.03021  ,  Loss/scores: 0.03021
+[train: 31, 150 / 416] FPS: 70.4 (84.9)  ,  Loss/total: 0.02862  ,  Loss/scores: 0.02862
+[train: 31, 200 / 416] FPS: 73.2 (82.1)  ,  Loss/total: 0.03056  ,  Loss/scores: 0.03056
+[train: 31, 200 / 416] FPS: 73.4 (81.0)  ,  Loss/total: 0.02786  ,  Loss/scores: 0.02786
+[train: 31, 250 / 416] FPS: 75.3 (85.6)  ,  Loss/total: 0.02697  ,  Loss/scores: 0.02697
+[train: 31, 250 / 416] FPS: 75.1 (85.4)  ,  Loss/total: 0.02866  ,  Loss/scores: 0.02866
+[train: 31, 300 / 416] FPS: 76.6 (85.5)  ,  Loss/total: 0.02682  ,  Loss/scores: 0.02682
+[train: 31, 300 / 416] FPS: 76.4 (84.4)  ,  Loss/total: 0.02852  ,  Loss/scores: 0.02852
+[train: 31, 350 / 416] FPS: 77.5 (85.2)  ,  Loss/total: 0.02659  ,  Loss/scores: 0.02659
+[train: 31, 350 / 416] FPS: 77.4 (85.2)  ,  Loss/total: 0.02816  ,  Loss/scores: 0.02816
+[train: 31, 400 / 416] FPS: 78.5 (87.4)  ,  Loss/total: 0.02599  ,  Loss/scores: 0.02599
+[train: 31, 400 / 416] FPS: 78.3 (86.3)  ,  Loss/total: 0.02761  ,  Loss/scores: 0.02761
+[train: 31, 416 / 416] FPS: 78.8 (86.3)  ,  Loss/total: 0.02575  ,  Loss/scores: 0.02575
+[train: 31, 416 / 416] FPS: 78.6 (85.5)  ,  Loss/total: 0.02786  ,  Loss/scores: 0.02786
+[train: 32, 50 / 416] FPS: 53.3 (83.5)  ,  Loss/total: 0.03547  ,  Loss/scores: 0.03547
+[train: 32, 50 / 416] FPS: 53.3 (83.3)  ,  Loss/total: 0.02081  ,  Loss/scores: 0.02081
+[train: 32, 100 / 416] FPS: 65.0 (85.2)  ,  Loss/total: 0.02364  ,  Loss/scores: 0.02364
+[train: 32, 100 / 416] FPS: 65.0 (84.4)  ,  Loss/total: 0.02977  ,  Loss/scores: 0.02977
+[train: 32, 150 / 416] FPS: 70.4 (86.0)  ,  Loss/total: 0.02532  ,  Loss/scores: 0.02532
+[train: 32, 150 / 416] FPS: 70.4 (84.8)  ,  Loss/total: 0.02836  ,  Loss/scores: 0.02836
+[train: 32, 200 / 416] FPS: 73.4 (86.3)  ,  Loss/total: 0.02753  ,  Loss/scores: 0.02753
+[train: 32, 200 / 416] FPS: 73.4 (86.2)  ,  Loss/total: 0.02791  ,  Loss/scores: 0.02791
+[train: 32, 250 / 416] FPS: 75.3 (83.8)  ,  Loss/total: 0.02859  ,  Loss/scores: 0.02859
+[train: 32, 250 / 416] FPS: 75.3 (83.6)  ,  Loss/total: 0.02723  ,  Loss/scores: 0.02723
+[train: 32, 300 / 416] FPS: 76.7 (84.6)  ,  Loss/total: 0.02847  ,  Loss/scores: 0.02847
+[train: 32, 300 / 416] FPS: 76.7 (84.1)  ,  Loss/total: 0.02707  ,  Loss/scores: 0.02707
+[train: 32, 350 / 416] FPS: 77.6 (85.5)  ,  Loss/total: 0.02570  ,  Loss/scores: 0.02570
+[train: 32, 350 / 416] FPS: 77.6 (84.8)  ,  Loss/total: 0.02813  ,  Loss/scores: 0.02813
+[train: 32, 400 / 416] FPS: 78.6 (88.4)  ,  Loss/total: 0.02557  ,  Loss/scores: 0.02557
+[train: 32, 400 / 416] FPS: 78.6 (88.4)  ,  Loss/total: 0.02779  ,  Loss/scores: 0.02779
+[train: 32, 416 / 416] FPS: 78.9 (87.2)  ,  Loss/total: 0.02783  ,  Loss/scores: 0.02783
+[train: 32, 416 / 416] FPS: 78.9 (86.9)  ,  Loss/total: 0.02515  ,  Loss/scores: 0.02515
+[train: 33, 50 / 416] FPS: 51.2 (84.1)  ,  Loss/total: 0.03181  ,  Loss/scores: 0.03181
+[train: 33, 50 / 416] FPS: 51.2 (84.6)  ,  Loss/total: 0.02413  ,  Loss/scores: 0.02413
+[train: 33, 100 / 416] FPS: 63.8 (84.3)  ,  Loss/total: 0.02605  ,  Loss/scores: 0.02605
+[train: 33, 100 / 416] FPS: 63.8 (84.2)  ,  Loss/total: 0.02718  ,  Loss/scores: 0.02718
+[train: 33, 150 / 416] FPS: 69.1 (86.0)  ,  Loss/total: 0.02537  ,  Loss/scores: 0.02537
+[train: 33, 150 / 416] FPS: 69.1 (84.8)  ,  Loss/total: 0.02890  ,  Loss/scores: 0.02890
+[train: 33, 200 / 416] FPS: 72.2 (84.7)  ,  Loss/total: 0.02702  ,  Loss/scores: 0.02702
+[train: 33, 200 / 416] FPS: 72.2 (83.7)  ,  Loss/total: 0.02676  ,  Loss/scores: 0.02676
+[train: 33, 250 / 416] FPS: 74.4 (83.9)  ,  Loss/total: 0.02618  ,  Loss/scores: 0.02618
+[train: 33, 250 / 416] FPS: 74.4 (82.8)  ,  Loss/total: 0.02708  ,  Loss/scores: 0.02708
+[train: 33, 300 / 416] FPS: 75.8 (86.1)  ,  Loss/total: 0.02620  ,  Loss/scores: 0.02620
+[train: 33, 300 / 416] FPS: 75.8 (85.2)  ,  Loss/total: 0.02833  ,  Loss/scores: 0.02833
+[train: 33, 350 / 416] FPS: 76.9 (84.6)  ,  Loss/total: 0.02621  ,  Loss/scores: 0.02621
+[train: 33, 350 / 416] FPS: 76.9 (85.0)  ,  Loss/total: 0.02826  ,  Loss/scores: 0.02826
+[train: 33, 400 / 416] FPS: 78.0 (87.8)  ,  Loss/total: 0.02568  ,  Loss/scores: 0.02568
+[train: 33, 400 / 416] FPS: 78.0 (87.8)  ,  Loss/total: 0.02779  ,  Loss/scores: 0.02779
+[train: 33, 416 / 416] FPS: 78.3 (87.5)  ,  Loss/total: 0.02615  ,  Loss/scores: 0.02615
+[train: 33, 416 / 416] FPS: 78.3 (87.5)  ,  Loss/total: 0.02771  ,  Loss/scores: 0.02771
+[train: 34, 50 / 416] FPS: 52.3 (84.1)  ,  Loss/total: 0.02791  ,  Loss/scores: 0.02791
+[train: 34, 50 / 416] FPS: 52.3 (84.6)  ,  Loss/total: 0.03018  ,  Loss/scores: 0.03018
+[train: 34, 100 / 416] FPS: 64.4 (83.7)  ,  Loss/total: 0.02702  ,  Loss/scores: 0.02702
+[train: 34, 100 / 416] FPS: 64.4 (83.3)  ,  Loss/total: 0.02931  ,  Loss/scores: 0.02931
+[train: 34, 150 / 416] FPS: 69.7 (83.7)  ,  Loss/total: 0.02982  ,  Loss/scores: 0.02982
+[train: 34, 150 / 416] FPS: 69.7 (83.1)  ,  Loss/total: 0.02918  ,  Loss/scores: 0.02918
+[train: 34, 200 / 416] FPS: 72.8 (85.6)  ,  Loss/total: 0.02880  ,  Loss/scores: 0.02880
+[train: 34, 200 / 416] FPS: 72.8 (84.5)  ,  Loss/total: 0.02813  ,  Loss/scores: 0.02813
+[train: 34, 250 / 416] FPS: 74.6 (86.2)  ,  Loss/total: 0.02806  ,  Loss/scores: 0.02806
+[train: 34, 250 / 416] FPS: 74.6 (85.9)  ,  Loss/total: 0.02844  ,  Loss/scores: 0.02844
+[train: 34, 300 / 416] FPS: 76.1 (83.8)  ,  Loss/total: 0.02916  ,  Loss/scores: 0.02916
+[train: 34, 300 / 416] FPS: 76.1 (84.3)  ,  Loss/total: 0.02788  ,  Loss/scores: 0.02788
+[train: 34, 350 / 416] FPS: 77.0 (83.8)  ,  Loss/total: 0.02814  ,  Loss/scores: 0.02814
+[train: 34, 350 / 416] FPS: 77.0 (83.8)  ,  Loss/total: 0.02915  ,  Loss/scores: 0.02915
+[train: 34, 400 / 416] FPS: 78.1 (87.7)  ,  Loss/total: 0.02846  ,  Loss/scores: 0.02846
+[train: 34, 400 / 416] FPS: 78.1 (87.7)  ,  Loss/total: 0.02736  ,  Loss/scores: 0.02736
+[train: 34, 416 / 416] FPS: 78.4 (85.5)  ,  Loss/total: 0.02885  ,  Loss/scores: 0.02885
+[train: 34, 416 / 416] FPS: 78.4 (85.5)  ,  Loss/total: 0.02716  ,  Loss/scores: 0.02716
+[train: 35, 50 / 416] FPS: 50.7 (86.1)  ,  Loss/total: 0.03109  ,  Loss/scores: 0.03109
+[train: 35, 50 / 416] FPS: 50.7 (85.3)  ,  Loss/total: 0.01999  ,  Loss/scores: 0.01999
+[train: 35, 100 / 416] FPS: 63.5 (83.8)  ,  Loss/total: 0.02698  ,  Loss/scores: 0.02698
+[train: 35, 100 / 416] FPS: 63.5 (84.4)  ,  Loss/total: 0.02217  ,  Loss/scores: 0.02217
+[train: 35, 150 / 416] FPS: 69.1 (80.7)  ,  Loss/total: 0.02634  ,  Loss/scores: 0.02634
+[train: 35, 150 / 416] FPS: 69.1 (79.8)  ,  Loss/total: 0.02364  ,  Loss/scores: 0.02364
+[train: 35, 200 / 416] FPS: 72.3 (74.0)  ,  Loss/total: 0.02444  ,  Loss/scores: 0.02444
+[train: 35, 200 / 416] FPS: 72.3 (73.8)  ,  Loss/total: 0.02899  ,  Loss/scores: 0.02899
+[train: 35, 250 / 416] FPS: 74.4 (85.0)  ,  Loss/total: 0.02979  ,  Loss/scores: 0.02979
+[train: 35, 250 / 416] FPS: 74.4 (84.9)  ,  Loss/total: 0.02570  ,  Loss/scores: 0.02570
+[train: 35, 300 / 416] FPS: 75.9 (87.0)  ,  Loss/total: 0.02990  ,  Loss/scores: 0.02990
+[train: 35, 300 / 416] FPS: 75.9 (86.9)  ,  Loss/total: 0.02678  ,  Loss/scores: 0.02678
+[train: 35, 350 / 416] FPS: 77.0 (81.8)  ,  Loss/total: 0.02704  ,  Loss/scores: 0.02704
+[train: 35, 350 / 416] FPS: 77.0 (81.5)  ,  Loss/total: 0.02977  ,  Loss/scores: 0.02977
+[train: 35, 400 / 416] FPS: 78.0 (86.8)  ,  Loss/total: 0.02644  ,  Loss/scores: 0.02644
+[train: 35, 400 / 416] FPS: 78.0 (86.8)  ,  Loss/total: 0.02959  ,  Loss/scores: 0.02959
+[train: 35, 416 / 416] FPS: 78.3 (87.4)  ,  Loss/total: 0.02935  ,  Loss/scores: 0.02935
+[train: 35, 416 / 416] FPS: 78.3 (87.5)  ,  Loss/total: 0.02612  ,  Loss/scores: 0.02612
+[val: 35, 50 / 69] FPS: 43.2 (100.1)  ,  Loss/total: 0.03929  ,  Loss/scores: 0.03929
+[val: 35, 50 / 69] FPS: 42.8 (95.6)  ,  Loss/total: 0.04773  ,  Loss/scores: 0.04773
+[val: 35, 69 / 69] FPS: 51.2 (97.2)  ,  Loss/total: 0.03758  ,  Loss/scores: 0.03758
+[val: 35, 69 / 69] FPS: 50.5 (93.0)  ,  Loss/total: 0.04557  ,  Loss/scores: 0.04557
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 36, 50 / 416] FPS: 53.1 (84.6)  ,  Loss/total: 0.02904  ,  Loss/scores: 0.02904
+[train: 36, 50 / 416] FPS: 49.5 (84.3)  ,  Loss/total: 0.02557  ,  Loss/scores: 0.02557
+[train: 36, 100 / 416] FPS: 65.2 (84.8)  ,  Loss/total: 0.02881  ,  Loss/scores: 0.02881
+[train: 36, 100 / 416] FPS: 62.4 (85.1)  ,  Loss/total: 0.02572  ,  Loss/scores: 0.02572
+[train: 36, 150 / 416] FPS: 70.6 (83.6)  ,  Loss/total: 0.02688  ,  Loss/scores: 0.02688
+[train: 36, 150 / 416] FPS: 68.4 (82.7)  ,  Loss/total: 0.02850  ,  Loss/scores: 0.02850
+[train: 36, 200 / 416] FPS: 71.8 (85.2)  ,  Loss/total: 0.02993  ,  Loss/scores: 0.02993
+[train: 36, 200 / 416] FPS: 73.5 (84.9)  ,  Loss/total: 0.02638  ,  Loss/scores: 0.02638
+[train: 36, 250 / 416] FPS: 75.5 (84.9)  ,  Loss/total: 0.02734  ,  Loss/scores: 0.02734
+[train: 36, 250 / 416] FPS: 73.9 (84.4)  ,  Loss/total: 0.02854  ,  Loss/scores: 0.02854
+[train: 36, 300 / 416] FPS: 75.4 (84.5)  ,  Loss/total: 0.02953  ,  Loss/scores: 0.02953
+[train: 36, 300 / 416] FPS: 76.7 (84.8)  ,  Loss/total: 0.02753  ,  Loss/scores: 0.02753
+[train: 36, 350 / 416] FPS: 77.7 (86.4)  ,  Loss/total: 0.02825  ,  Loss/scores: 0.02825
+[train: 36, 350 / 416] FPS: 76.5 (86.2)  ,  Loss/total: 0.02886  ,  Loss/scores: 0.02886
+[train: 36, 400 / 416] FPS: 78.7 (87.3)  ,  Loss/total: 0.02788  ,  Loss/scores: 0.02788
+[train: 36, 400 / 416] FPS: 77.6 (87.6)  ,  Loss/total: 0.02859  ,  Loss/scores: 0.02859
+[train: 36, 416 / 416] FPS: 77.9 (86.1)  ,  Loss/total: 0.02915  ,  Loss/scores: 0.02915
+[train: 36, 416 / 416] FPS: 78.9 (86.1)  ,  Loss/total: 0.02778  ,  Loss/scores: 0.02778
+[train: 37, 50 / 416] FPS: 52.6 (86.0)  ,  Loss/total: 0.02923  ,  Loss/scores: 0.02923
+[train: 37, 50 / 416] FPS: 52.6 (85.8)  ,  Loss/total: 0.02725  ,  Loss/scores: 0.02725
+[train: 37, 100 / 416] FPS: 64.7 (82.3)  ,  Loss/total: 0.02894  ,  Loss/scores: 0.02894
+[train: 37, 100 / 416] FPS: 64.7 (81.1)  ,  Loss/total: 0.02376  ,  Loss/scores: 0.02376
+[train: 37, 150 / 416] FPS: 70.1 (83.1)  ,  Loss/total: 0.02357  ,  Loss/scores: 0.02357
+[train: 37, 150 / 416] FPS: 70.1 (82.6)  ,  Loss/total: 0.03183  ,  Loss/scores: 0.03183
+[train: 37, 200 / 416] FPS: 73.1 (85.5)  ,  Loss/total: 0.03226  ,  Loss/scores: 0.03226
+[train: 37, 200 / 416] FPS: 73.1 (84.8)  ,  Loss/total: 0.02359  ,  Loss/scores: 0.02359
+[train: 37, 250 / 416] FPS: 74.9 (86.4)  ,  Loss/total: 0.02376  ,  Loss/scores: 0.02376
+[train: 37, 250 / 416] FPS: 74.9 (86.4)  ,  Loss/total: 0.03136  ,  Loss/scores: 0.03136
+[train: 37, 300 / 416] FPS: 76.4 (83.0)  ,  Loss/total: 0.03057  ,  Loss/scores: 0.03057
+[train: 37, 300 / 416] FPS: 76.4 (81.9)  ,  Loss/total: 0.02508  ,  Loss/scores: 0.02508
+[train: 37, 350 / 416] FPS: 77.3 (86.1)  ,  Loss/total: 0.02972  ,  Loss/scores: 0.02972
+[train: 37, 350 / 416] FPS: 77.3 (85.3)  ,  Loss/total: 0.02466  ,  Loss/scores: 0.02466
+[train: 37, 400 / 416] FPS: 78.4 (88.0)  ,  Loss/total: 0.03007  ,  Loss/scores: 0.03007
+[train: 37, 400 / 416] FPS: 78.4 (86.7)  ,  Loss/total: 0.02511  ,  Loss/scores: 0.02511
+[train: 37, 416 / 416] FPS: 78.7 (88.5)  ,  Loss/total: 0.02550  ,  Loss/scores: 0.02550
+[train: 37, 416 / 416] FPS: 78.7 (88.5)  ,  Loss/total: 0.03017  ,  Loss/scores: 0.03017
+[train: 38, 50 / 416] FPS: 52.2 (83.3)  ,  Loss/total: 0.01958  ,  Loss/scores: 0.01958
+[train: 38, 50 / 416] FPS: 52.2 (82.5)  ,  Loss/total: 0.02289  ,  Loss/scores: 0.02289
+[train: 38, 100 / 416] FPS: 64.5 (85.7)  ,  Loss/total: 0.02111  ,  Loss/scores: 0.02111
+[train: 38, 100 / 416] FPS: 64.5 (85.2)  ,  Loss/total: 0.02532  ,  Loss/scores: 0.02532
+[train: 38, 150 / 416] FPS: 70.1 (85.2)  ,  Loss/total: 0.02219  ,  Loss/scores: 0.02219
+[train: 38, 150 / 416] FPS: 70.1 (85.3)  ,  Loss/total: 0.02484  ,  Loss/scores: 0.02484
+[train: 38, 200 / 416] FPS: 73.1 (80.9)  ,  Loss/total: 0.02325  ,  Loss/scores: 0.02325
+[train: 38, 200 / 416] FPS: 73.1 (80.9)  ,  Loss/total: 0.02521  ,  Loss/scores: 0.02521
+[train: 38, 250 / 416] FPS: 75.1 (84.2)  ,  Loss/total: 0.02504  ,  Loss/scores: 0.02504
+[train: 38, 250 / 416] FPS: 75.1 (83.1)  ,  Loss/total: 0.02327  ,  Loss/scores: 0.02327
+[train: 38, 300 / 416] FPS: 76.5 (85.2)  ,  Loss/total: 0.02268  ,  Loss/scores: 0.02268
+[train: 38, 300 / 416] FPS: 76.5 (84.9)  ,  Loss/total: 0.02518  ,  Loss/scores: 0.02518
+[train: 38, 350 / 416] FPS: 77.5 (85.8)  ,  Loss/total: 0.02477  ,  Loss/scores: 0.02477
+[train: 38, 350 / 416] FPS: 77.5 (85.9)  ,  Loss/total: 0.02461  ,  Loss/scores: 0.02461
+[train: 38, 400 / 416] FPS: 78.5 (88.4)  ,  Loss/total: 0.02427  ,  Loss/scores: 0.02427
+[train: 38, 400 / 416] FPS: 78.5 (89.2)  ,  Loss/total: 0.02579  ,  Loss/scores: 0.02579
+[train: 38, 416 / 416] FPS: 78.8 (87.8)  ,  Loss/total: 0.02573  ,  Loss/scores: 0.02573
+[train: 38, 416 / 416] FPS: 78.8 (87.9)  ,  Loss/total: 0.02431  ,  Loss/scores: 0.02431
+[train: 39, 50 / 416] FPS: 50.8 (81.1)  ,  Loss/total: 0.03950  ,  Loss/scores: 0.03950
+[train: 39, 50 / 416] FPS: 50.8 (80.2)  ,  Loss/total: 0.02238  ,  Loss/scores: 0.02238
+[train: 39, 100 / 416] FPS: 63.2 (81.3)  ,  Loss/total: 0.02715  ,  Loss/scores: 0.02715
+[train: 39, 100 / 416] FPS: 63.1 (81.1)  ,  Loss/total: 0.03464  ,  Loss/scores: 0.03464
+[train: 39, 150 / 416] FPS: 68.8 (75.7)  ,  Loss/total: 0.02651  ,  Loss/scores: 0.02651
+[train: 39, 150 / 416] FPS: 68.8 (74.1)  ,  Loss/total: 0.03249  ,  Loss/scores: 0.03249
+[train: 39, 200 / 416] FPS: 71.9 (81.5)  ,  Loss/total: 0.02963  ,  Loss/scores: 0.02963
+[train: 39, 200 / 416] FPS: 71.9 (81.0)  ,  Loss/total: 0.02482  ,  Loss/scores: 0.02482
+[train: 39, 250 / 416] FPS: 74.0 (83.6)  ,  Loss/total: 0.02385  ,  Loss/scores: 0.02385
+[train: 39, 250 / 416] FPS: 74.0 (83.5)  ,  Loss/total: 0.02878  ,  Loss/scores: 0.02878
+[train: 39, 300 / 416] FPS: 75.4 (83.0)  ,  Loss/total: 0.02429  ,  Loss/scores: 0.02429
+[train: 39, 300 / 416] FPS: 75.4 (82.4)  ,  Loss/total: 0.02775  ,  Loss/scores: 0.02775
+[train: 39, 350 / 416] FPS: 76.5 (84.1)  ,  Loss/total: 0.02876  ,  Loss/scores: 0.02876
+[train: 39, 350 / 416] FPS: 76.5 (84.0)  ,  Loss/total: 0.02531  ,  Loss/scores: 0.02531
+[train: 39, 400 / 416] FPS: 77.6 (86.7)  ,  Loss/total: 0.02848  ,  Loss/scores: 0.02848
+[train: 39, 400 / 416] FPS: 77.6 (86.7)  ,  Loss/total: 0.02440  ,  Loss/scores: 0.02440
+[train: 39, 416 / 416] FPS: 77.9 (87.1)  ,  Loss/total: 0.02833  ,  Loss/scores: 0.02833
+[train: 39, 416 / 416] FPS: 77.9 (87.0)  ,  Loss/total: 0.02452  ,  Loss/scores: 0.02452
+[train: 40, 50 / 416] FPS: 53.4 (85.2)  ,  Loss/total: 0.02700  ,  Loss/scores: 0.02700
+[train: 40, 50 / 416] FPS: 53.4 (86.2)  ,  Loss/total: 0.02399  ,  Loss/scores: 0.02399
+[train: 40, 100 / 416] FPS: 65.4 (85.5)  ,  Loss/total: 0.03066  ,  Loss/scores: 0.03066
+[train: 40, 100 / 416] FPS: 65.4 (84.7)  ,  Loss/total: 0.02987  ,  Loss/scores: 0.02987
+[train: 40, 150 / 416] FPS: 70.6 (85.1)  ,  Loss/total: 0.02568  ,  Loss/scores: 0.02568
+[train: 40, 150 / 416] FPS: 70.6 (84.2)  ,  Loss/total: 0.02855  ,  Loss/scores: 0.02855
+[train: 40, 200 / 416] FPS: 73.6 (84.5)  ,  Loss/total: 0.02761  ,  Loss/scores: 0.02761
+[train: 40, 200 / 416] FPS: 73.6 (83.3)  ,  Loss/total: 0.02718  ,  Loss/scores: 0.02718
+[train: 40, 250 / 416] FPS: 75.5 (83.2)  ,  Loss/total: 0.02738  ,  Loss/scores: 0.02738
+[train: 40, 250 / 416] FPS: 75.5 (82.7)  ,  Loss/total: 0.02697  ,  Loss/scores: 0.02697
+[train: 40, 300 / 416] FPS: 76.8 (83.2)  ,  Loss/total: 0.02725  ,  Loss/scores: 0.02725
+[train: 40, 300 / 416] FPS: 76.8 (83.8)  ,  Loss/total: 0.02807  ,  Loss/scores: 0.02807
+[train: 40, 350 / 416] FPS: 77.9 (85.1)  ,  Loss/total: 0.02697  ,  Loss/scores: 0.02697
+[train: 40, 350 / 416] FPS: 77.8 (84.2)  ,  Loss/total: 0.02866  ,  Loss/scores: 0.02866
+[train: 40, 400 / 416] FPS: 78.8 (86.5)  ,  Loss/total: 0.02762  ,  Loss/scores: 0.02762
+[train: 40, 400 / 416] FPS: 78.8 (86.5)  ,  Loss/total: 0.02668  ,  Loss/scores: 0.02668
+[train: 40, 416 / 416] FPS: 79.1 (88.7)  ,  Loss/total: 0.02623  ,  Loss/scores: 0.02623
+[train: 40, 416 / 416] FPS: 79.1 (88.7)  ,  Loss/total: 0.02781  ,  Loss/scores: 0.02781
+[val: 40, 50 / 69] FPS: 47.8 (100.1)  ,  Loss/total: 0.03740  ,  Loss/scores: 0.03740
+[val: 40, 50 / 69] FPS: 46.9 (94.8)  ,  Loss/total: 0.03417  ,  Loss/scores: 0.03417
+[val: 40, 69 / 69] FPS: 55.8 (100.6)  ,  Loss/total: 0.03761  ,  Loss/scores: 0.03761
+[val: 40, 69 / 69] FPS: 54.6 (95.9)  ,  Loss/total: 0.03593  ,  Loss/scores: 0.03593
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 41, 50 / 416] FPS: 49.8 (86.7)  ,  Loss/total: 0.01854  ,  Loss/scores: 0.01854
+[train: 41, 50 / 416] FPS: 52.5 (86.0)  ,  Loss/total: 0.02791  ,  Loss/scores: 0.02791
+[train: 41, 100 / 416] FPS: 64.9 (83.6)  ,  Loss/total: 0.02509  ,  Loss/scores: 0.02509
+[train: 41, 100 / 416] FPS: 62.8 (83.6)  ,  Loss/total: 0.02015  ,  Loss/scores: 0.02015
+[train: 41, 150 / 416] FPS: 70.4 (87.2)  ,  Loss/total: 0.02797  ,  Loss/scores: 0.02797
+[train: 41, 150 / 416] FPS: 68.7 (86.6)  ,  Loss/total: 0.02328  ,  Loss/scores: 0.02328
+[train: 41, 200 / 416] FPS: 73.5 (83.5)  ,  Loss/total: 0.02825  ,  Loss/scores: 0.02825
+[train: 41, 200 / 416] FPS: 72.1 (82.7)  ,  Loss/total: 0.02285  ,  Loss/scores: 0.02285
+[train: 41, 250 / 416] FPS: 75.4 (83.7)  ,  Loss/total: 0.02795  ,  Loss/scores: 0.02795
+[train: 41, 250 / 416] FPS: 74.3 (83.6)  ,  Loss/total: 0.02509  ,  Loss/scores: 0.02509
+[train: 41, 300 / 416] FPS: 75.8 (84.2)  ,  Loss/total: 0.02582  ,  Loss/scores: 0.02582
+[train: 41, 300 / 416] FPS: 76.8 (84.0)  ,  Loss/total: 0.02826  ,  Loss/scores: 0.02826
+[train: 41, 350 / 416] FPS: 77.9 (86.0)  ,  Loss/total: 0.02765  ,  Loss/scores: 0.02765
+[train: 41, 350 / 416] FPS: 77.0 (85.1)  ,  Loss/total: 0.02528  ,  Loss/scores: 0.02528
+[train: 41, 400 / 416] FPS: 78.8 (88.6)  ,  Loss/total: 0.02738  ,  Loss/scores: 0.02738
+[train: 41, 400 / 416] FPS: 78.0 (88.6)  ,  Loss/total: 0.02633  ,  Loss/scores: 0.02633
+[train: 41, 416 / 416] FPS: 78.3 (86.5)  ,  Loss/total: 0.02671  ,  Loss/scores: 0.02671
+[train: 41, 416 / 416] FPS: 79.1 (85.5)  ,  Loss/total: 0.02770  ,  Loss/scores: 0.02770
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 42, 50 / 416] FPS: 43.4 (85.9)  ,  Loss/total: 0.02546  ,  Loss/scores: 0.02546
+[train: 42, 50 / 416] FPS: 42.5 (86.7)  ,  Loss/total: 0.03484  ,  Loss/scores: 0.03484
+[train: 42, 100 / 416] FPS: 56.7 (85.4)  ,  Loss/total: 0.02767  ,  Loss/scores: 0.02767
+[train: 42, 100 / 416] FPS: 57.4 (84.7)  ,  Loss/total: 0.02590  ,  Loss/scores: 0.02590
+[train: 42, 150 / 416] FPS: 64.4 (85.4)  ,  Loss/total: 0.02362  ,  Loss/scores: 0.02362
+[train: 42, 150 / 416] FPS: 63.8 (85.6)  ,  Loss/total: 0.02608  ,  Loss/scores: 0.02608
+[train: 42, 200 / 416] FPS: 68.5 (84.2)  ,  Loss/total: 0.02432  ,  Loss/scores: 0.02432
+[train: 42, 200 / 416] FPS: 67.9 (83.9)  ,  Loss/total: 0.02637  ,  Loss/scores: 0.02637
+[train: 42, 250 / 416] FPS: 71.1 (85.2)  ,  Loss/total: 0.02539  ,  Loss/scores: 0.02539
+[train: 42, 250 / 416] FPS: 70.7 (83.7)  ,  Loss/total: 0.02581  ,  Loss/scores: 0.02581
+[train: 42, 300 / 416] FPS: 72.6 (86.1)  ,  Loss/total: 0.02646  ,  Loss/scores: 0.02646
+[train: 42, 300 / 416] FPS: 73.1 (85.4)  ,  Loss/total: 0.02610  ,  Loss/scores: 0.02610
+[train: 42, 350 / 416] FPS: 74.1 (82.6)  ,  Loss/total: 0.02635  ,  Loss/scores: 0.02635
+[train: 42, 350 / 416] FPS: 74.5 (82.6)  ,  Loss/total: 0.02604  ,  Loss/scores: 0.02604
+[train: 42, 400 / 416] FPS: 75.4 (85.5)  ,  Loss/total: 0.02550  ,  Loss/scores: 0.02550
+[train: 42, 400 / 416] FPS: 75.8 (85.5)  ,  Loss/total: 0.02647  ,  Loss/scores: 0.02647
+[train: 42, 416 / 416] FPS: 75.8 (87.4)  ,  Loss/total: 0.02554  ,  Loss/scores: 0.02554
+[train: 42, 416 / 416] FPS: 76.2 (87.4)  ,  Loss/total: 0.02755  ,  Loss/scores: 0.02755
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 43, 50 / 416] FPS: 51.9 (85.7)  ,  Loss/total: 0.02831  ,  Loss/scores: 0.02831
+[train: 43, 50 / 416] FPS: 53.2 (85.6)  ,  Loss/total: 0.02587  ,  Loss/scores: 0.02587
+[train: 43, 100 / 416] FPS: 65.5 (85.2)  ,  Loss/total: 0.02314  ,  Loss/scores: 0.02314
+[train: 43, 100 / 416] FPS: 64.5 (85.2)  ,  Loss/total: 0.02348  ,  Loss/scores: 0.02348
+[train: 43, 150 / 416] FPS: 70.8 (76.1)  ,  Loss/total: 0.02455  ,  Loss/scores: 0.02455
+[train: 43, 150 / 416] FPS: 70.0 (75.7)  ,  Loss/total: 0.02792  ,  Loss/scores: 0.02792
+[train: 43, 200 / 416] FPS: 73.9 (85.5)  ,  Loss/total: 0.02574  ,  Loss/scores: 0.02574
+[train: 43, 200 / 416] FPS: 73.2 (84.9)  ,  Loss/total: 0.02681  ,  Loss/scores: 0.02681
+[train: 43, 250 / 416] FPS: 75.3 (84.6)  ,  Loss/total: 0.02714  ,  Loss/scores: 0.02714
+[train: 43, 250 / 416] FPS: 75.9 (84.2)  ,  Loss/total: 0.02696  ,  Loss/scores: 0.02696
+[train: 43, 300 / 416] FPS: 77.2 (86.5)  ,  Loss/total: 0.02838  ,  Loss/scores: 0.02838
+[train: 43, 300 / 416] FPS: 76.7 (85.7)  ,  Loss/total: 0.02595  ,  Loss/scores: 0.02595
+[train: 43, 350 / 416] FPS: 78.2 (85.7)  ,  Loss/total: 0.02808  ,  Loss/scores: 0.02808
+[train: 43, 350 / 416] FPS: 77.8 (85.7)  ,  Loss/total: 0.02638  ,  Loss/scores: 0.02638
+[train: 43, 400 / 416] FPS: 78.9 (86.6)  ,  Loss/total: 0.02750  ,  Loss/scores: 0.02750
+[train: 43, 400 / 416] FPS: 79.2 (86.7)  ,  Loss/total: 0.02838  ,  Loss/scores: 0.02838
+[train: 43, 416 / 416] FPS: 79.5 (88.1)  ,  Loss/total: 0.02797  ,  Loss/scores: 0.02797
+[train: 43, 416 / 416] FPS: 79.1 (88.6)  ,  Loss/total: 0.02741  ,  Loss/scores: 0.02741
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 44, 50 / 416] FPS: 53.1 (84.5)  ,  Loss/total: 0.03839  ,  Loss/scores: 0.03839
+[train: 44, 50 / 416] FPS: 51.8 (84.2)  ,  Loss/total: 0.02248  ,  Loss/scores: 0.02248
+[train: 44, 100 / 416] FPS: 64.3 (86.1)  ,  Loss/total: 0.02440  ,  Loss/scores: 0.02440
+[train: 44, 100 / 416] FPS: 65.3 (85.8)  ,  Loss/total: 0.03094  ,  Loss/scores: 0.03094
+[train: 44, 150 / 416] FPS: 69.8 (84.1)  ,  Loss/total: 0.02377  ,  Loss/scores: 0.02377
+[train: 44, 150 / 416] FPS: 70.6 (84.8)  ,  Loss/total: 0.02891  ,  Loss/scores: 0.02891
+[train: 44, 200 / 416] FPS: 73.6 (85.7)  ,  Loss/total: 0.02771  ,  Loss/scores: 0.02771
+[train: 44, 200 / 416] FPS: 72.9 (86.4)  ,  Loss/total: 0.02535  ,  Loss/scores: 0.02535
+[train: 44, 250 / 416] FPS: 74.9 (86.4)  ,  Loss/total: 0.02460  ,  Loss/scores: 0.02460
+[train: 44, 250 / 416] FPS: 75.4 (85.3)  ,  Loss/total: 0.02647  ,  Loss/scores: 0.02647
+[train: 44, 300 / 416] FPS: 76.3 (83.1)  ,  Loss/total: 0.02496  ,  Loss/scores: 0.02496
+[train: 44, 300 / 416] FPS: 76.7 (82.8)  ,  Loss/total: 0.02541  ,  Loss/scores: 0.02541
+[train: 44, 350 / 416] FPS: 77.7 (85.1)  ,  Loss/total: 0.02597  ,  Loss/scores: 0.02597
+[train: 44, 350 / 416] FPS: 77.3 (85.9)  ,  Loss/total: 0.02537  ,  Loss/scores: 0.02537
+[train: 44, 400 / 416] FPS: 78.7 (88.5)  ,  Loss/total: 0.02546  ,  Loss/scores: 0.02546
+[train: 44, 400 / 416] FPS: 78.3 (88.4)  ,  Loss/total: 0.02543  ,  Loss/scores: 0.02543
+[train: 44, 416 / 416] FPS: 79.0 (86.7)  ,  Loss/total: 0.02567  ,  Loss/scores: 0.02567
+[train: 44, 416 / 416] FPS: 78.6 (85.5)  ,  Loss/total: 0.02548  ,  Loss/scores: 0.02548
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 45, 50 / 416] FPS: 54.0 (84.7)  ,  Loss/total: 0.01961  ,  Loss/scores: 0.01961
+[train: 45, 50 / 416] FPS: 52.6 (83.2)  ,  Loss/total: 0.03409  ,  Loss/scores: 0.03409
+[train: 45, 100 / 416] FPS: 65.0 (84.2)  ,  Loss/total: 0.03394  ,  Loss/scores: 0.03394
+[train: 45, 100 / 416] FPS: 66.1 (84.4)  ,  Loss/total: 0.02363  ,  Loss/scores: 0.02363
+[train: 45, 150 / 416] FPS: 70.5 (85.7)  ,  Loss/total: 0.03189  ,  Loss/scores: 0.03189
+[train: 45, 150 / 416] FPS: 71.3 (85.7)  ,  Loss/total: 0.02357  ,  Loss/scores: 0.02357
+[train: 45, 200 / 416] FPS: 73.5 (75.8)  ,  Loss/total: 0.03023  ,  Loss/scores: 0.03023
+[train: 45, 200 / 416] FPS: 74.2 (75.4)  ,  Loss/total: 0.02329  ,  Loss/scores: 0.02329
+[train: 45, 250 / 416] FPS: 76.0 (85.6)  ,  Loss/total: 0.02262  ,  Loss/scores: 0.02262
+[train: 45, 250 / 416] FPS: 75.5 (84.8)  ,  Loss/total: 0.02993  ,  Loss/scores: 0.02993
+[train: 45, 300 / 416] FPS: 77.4 (84.8)  ,  Loss/total: 0.02376  ,  Loss/scores: 0.02376
+[train: 45, 300 / 416] FPS: 76.9 (83.6)  ,  Loss/total: 0.02810  ,  Loss/scores: 0.02810
+[train: 45, 350 / 416] FPS: 77.9 (85.5)  ,  Loss/total: 0.02768  ,  Loss/scores: 0.02768
+[train: 45, 350 / 416] FPS: 78.4 (84.0)  ,  Loss/total: 0.02398  ,  Loss/scores: 0.02398
+[train: 45, 400 / 416] FPS: 79.3 (87.3)  ,  Loss/total: 0.02477  ,  Loss/scores: 0.02477
+[train: 45, 400 / 416] FPS: 78.9 (87.3)  ,  Loss/total: 0.02764  ,  Loss/scores: 0.02764
+[train: 45, 416 / 416] FPS: 79.6 (88.2)  ,  Loss/total: 0.02481  ,  Loss/scores: 0.02481
+[train: 45, 416 / 416] FPS: 79.2 (88.2)  ,  Loss/total: 0.02701  ,  Loss/scores: 0.02701
+[val: 45, 50 / 69] FPS: 49.2 (92.5)  ,  Loss/total: 0.04273  ,  Loss/scores: 0.04273
+[val: 45, 50 / 69] FPS: 48.9 (97.3)  ,  Loss/total: 0.04511  ,  Loss/scores: 0.04511
+[val: 45, 69 / 69] FPS: 56.8 (96.6)  ,  Loss/total: 0.04597  ,  Loss/scores: 0.04597
+[val: 45, 69 / 69] FPS: 56.7 (99.5)  ,  Loss/total: 0.04377  ,  Loss/scores: 0.04377
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 46, 50 / 416] FPS: 50.7 (87.3)  ,  Loss/total: 0.03241  ,  Loss/scores: 0.03241
+[train: 46, 50 / 416] FPS: 51.9 (86.8)  ,  Loss/total: 0.02121  ,  Loss/scores: 0.02121
+[train: 46, 100 / 416] FPS: 63.5 (83.8)  ,  Loss/total: 0.03074  ,  Loss/scores: 0.03074
+[train: 46, 100 / 416] FPS: 64.4 (84.6)  ,  Loss/total: 0.02181  ,  Loss/scores: 0.02181
+[train: 46, 150 / 416] FPS: 69.2 (85.3)  ,  Loss/total: 0.02855  ,  Loss/scores: 0.02855
+[train: 46, 150 / 416] FPS: 69.9 (85.1)  ,  Loss/total: 0.02291  ,  Loss/scores: 0.02291
+[train: 46, 200 / 416] FPS: 72.5 (84.2)  ,  Loss/total: 0.02965  ,  Loss/scores: 0.02965
+[train: 46, 200 / 416] FPS: 73.0 (83.1)  ,  Loss/total: 0.02360  ,  Loss/scores: 0.02360
+[train: 46, 250 / 416] FPS: 74.6 (84.9)  ,  Loss/total: 0.02859  ,  Loss/scores: 0.02859
+[train: 46, 250 / 416] FPS: 75.1 (84.0)  ,  Loss/total: 0.02294  ,  Loss/scores: 0.02294
+[train: 46, 300 / 416] FPS: 76.5 (85.9)  ,  Loss/total: 0.02363  ,  Loss/scores: 0.02363
+[train: 46, 300 / 416] FPS: 76.1 (85.8)  ,  Loss/total: 0.02864  ,  Loss/scores: 0.02864
+[train: 46, 350 / 416] FPS: 77.2 (85.0)  ,  Loss/total: 0.02771  ,  Loss/scores: 0.02771
+[train: 46, 350 / 416] FPS: 77.6 (84.8)  ,  Loss/total: 0.02456  ,  Loss/scores: 0.02456
+[train: 46, 400 / 416] FPS: 78.7 (88.7)  ,  Loss/total: 0.02555  ,  Loss/scores: 0.02555
+[train: 46, 400 / 416] FPS: 78.3 (87.8)  ,  Loss/total: 0.02712  ,  Loss/scores: 0.02712
+[train: 46, 416 / 416] FPS: 78.7 (89.8)  ,  Loss/total: 0.02693  ,  Loss/scores: 0.02693
+[train: 46, 416 / 416] FPS: 79.0 (88.5)  ,  Loss/total: 0.02548  ,  Loss/scores: 0.02548
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 47, 50 / 416] FPS: 53.9 (86.8)  ,  Loss/total: 0.02663  ,  Loss/scores: 0.02663
+[train: 47, 50 / 416] FPS: 52.5 (86.3)  ,  Loss/total: 0.03280  ,  Loss/scores: 0.03280
+[train: 47, 100 / 416] FPS: 64.9 (85.9)  ,  Loss/total: 0.02836  ,  Loss/scores: 0.02836
+[train: 47, 100 / 416] FPS: 66.0 (85.4)  ,  Loss/total: 0.02435  ,  Loss/scores: 0.02435
+[train: 47, 150 / 416] FPS: 70.3 (84.2)  ,  Loss/total: 0.02853  ,  Loss/scores: 0.02853
+[train: 47, 150 / 416] FPS: 71.1 (84.3)  ,  Loss/total: 0.02321  ,  Loss/scores: 0.02321
+[train: 47, 200 / 416] FPS: 73.5 (88.1)  ,  Loss/total: 0.02818  ,  Loss/scores: 0.02818
+[train: 47, 200 / 416] FPS: 74.2 (86.9)  ,  Loss/total: 0.02372  ,  Loss/scores: 0.02372
+[train: 47, 250 / 416] FPS: 76.0 (82.8)  ,  Loss/total: 0.02490  ,  Loss/scores: 0.02490
+[train: 47, 250 / 416] FPS: 75.5 (82.1)  ,  Loss/total: 0.02893  ,  Loss/scores: 0.02893
+[train: 47, 300 / 416] FPS: 76.8 (86.4)  ,  Loss/total: 0.02841  ,  Loss/scores: 0.02841
+[train: 47, 300 / 416] FPS: 77.3 (86.3)  ,  Loss/total: 0.02492  ,  Loss/scores: 0.02492
+[train: 47, 350 / 416] FPS: 77.9 (85.3)  ,  Loss/total: 0.02802  ,  Loss/scores: 0.02802
+[train: 47, 350 / 416] FPS: 78.3 (85.8)  ,  Loss/total: 0.02570  ,  Loss/scores: 0.02570
+[train: 47, 400 / 416] FPS: 79.2 (86.6)  ,  Loss/total: 0.02539  ,  Loss/scores: 0.02539
+[train: 47, 400 / 416] FPS: 78.9 (86.7)  ,  Loss/total: 0.02793  ,  Loss/scores: 0.02793
+[train: 47, 416 / 416] FPS: 79.1 (88.6)  ,  Loss/total: 0.02749  ,  Loss/scores: 0.02749
+[train: 47, 416 / 416] FPS: 79.5 (88.6)  ,  Loss/total: 0.02504  ,  Loss/scores: 0.02504
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 48, 50 / 416] FPS: 54.1 (83.9)  ,  Loss/total: 0.02124  ,  Loss/scores: 0.02124
+[train: 48, 50 / 416] FPS: 55.5 (84.8)  ,  Loss/total: 0.01603  ,  Loss/scores: 0.01603
+[train: 48, 100 / 416] FPS: 66.2 (86.0)  ,  Loss/total: 0.02220  ,  Loss/scores: 0.02220
+[train: 48, 100 / 416] FPS: 67.3 (85.7)  ,  Loss/total: 0.01811  ,  Loss/scores: 0.01811
+[train: 48, 150 / 416] FPS: 71.4 (85.9)  ,  Loss/total: 0.02319  ,  Loss/scores: 0.02319
+[train: 48, 150 / 416] FPS: 72.2 (85.3)  ,  Loss/total: 0.02214  ,  Loss/scores: 0.02214
+[train: 48, 200 / 416] FPS: 75.1 (87.0)  ,  Loss/total: 0.02490  ,  Loss/scores: 0.02490
+[train: 48, 200 / 416] FPS: 74.4 (86.5)  ,  Loss/total: 0.02419  ,  Loss/scores: 0.02419
+[train: 48, 250 / 416] FPS: 76.8 (86.9)  ,  Loss/total: 0.02451  ,  Loss/scores: 0.02451
+[train: 48, 250 / 416] FPS: 76.2 (87.0)  ,  Loss/total: 0.02606  ,  Loss/scores: 0.02606
+[train: 48, 300 / 416] FPS: 77.6 (83.6)  ,  Loss/total: 0.02663  ,  Loss/scores: 0.02663
+[train: 48, 300 / 416] FPS: 78.0 (83.5)  ,  Loss/total: 0.02499  ,  Loss/scores: 0.02499
+[train: 48, 350 / 416] FPS: 78.5 (86.2)  ,  Loss/total: 0.02606  ,  Loss/scores: 0.02606
+[train: 48, 350 / 416] FPS: 78.9 (86.1)  ,  Loss/total: 0.02426  ,  Loss/scores: 0.02426
+[train: 48, 400 / 416] FPS: 79.8 (87.8)  ,  Loss/total: 0.02435  ,  Loss/scores: 0.02435
+[train: 48, 400 / 416] FPS: 79.4 (87.6)  ,  Loss/total: 0.02514  ,  Loss/scores: 0.02514
+[train: 48, 416 / 416] FPS: 80.0 (87.5)  ,  Loss/total: 0.02452  ,  Loss/scores: 0.02452
+[train: 48, 416 / 416] FPS: 79.7 (87.5)  ,  Loss/total: 0.02523  ,  Loss/scores: 0.02523
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 49, 50 / 416] FPS: 47.6 (87.3)  ,  Loss/total: 0.03159  ,  Loss/scores: 0.03159
+[train: 49, 50 / 416] FPS: 46.5 (86.7)  ,  Loss/total: 0.02931  ,  Loss/scores: 0.02931
+[train: 49, 100 / 416] FPS: 60.2 (86.0)  ,  Loss/total: 0.03161  ,  Loss/scores: 0.03161
+[train: 49, 100 / 416] FPS: 61.1 (86.0)  ,  Loss/total: 0.02912  ,  Loss/scores: 0.02912
+[train: 49, 150 / 416] FPS: 67.4 (86.6)  ,  Loss/total: 0.02657  ,  Loss/scores: 0.02657
+[train: 49, 150 / 416] FPS: 66.7 (85.8)  ,  Loss/total: 0.03069  ,  Loss/scores: 0.03069
+[train: 49, 200 / 416] FPS: 70.5 (86.1)  ,  Loss/total: 0.02901  ,  Loss/scores: 0.02901
+[train: 49, 200 / 416] FPS: 71.2 (84.8)  ,  Loss/total: 0.02809  ,  Loss/scores: 0.02809
+[train: 49, 250 / 416] FPS: 73.1 (84.4)  ,  Loss/total: 0.02860  ,  Loss/scores: 0.02860
+[train: 49, 250 / 416] FPS: 73.6 (84.7)  ,  Loss/total: 0.02654  ,  Loss/scores: 0.02654
+[train: 49, 300 / 416] FPS: 75.3 (80.4)  ,  Loss/total: 0.02767  ,  Loss/scores: 0.02767
+[train: 49, 300 / 416] FPS: 74.8 (79.3)  ,  Loss/total: 0.02714  ,  Loss/scores: 0.02714
+[train: 49, 350 / 416] FPS: 76.6 (87.0)  ,  Loss/total: 0.02742  ,  Loss/scores: 0.02742
+[train: 49, 350 / 416] FPS: 76.2 (86.9)  ,  Loss/total: 0.02752  ,  Loss/scores: 0.02752
+[train: 49, 400 / 416] FPS: 77.4 (84.5)  ,  Loss/total: 0.02754  ,  Loss/scores: 0.02754
+[train: 49, 400 / 416] FPS: 77.7 (84.6)  ,  Loss/total: 0.02689  ,  Loss/scores: 0.02689
+[train: 49, 416 / 416] FPS: 77.7 (88.2)  ,  Loss/total: 0.02741  ,  Loss/scores: 0.02741
+[train: 49, 416 / 416] FPS: 78.1 (88.1)  ,  Loss/total: 0.02637  ,  Loss/scores: 0.02637
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[train: 50, 50 / 416] FPS: 53.7 (86.2)  ,  Loss/total: 0.02338  ,  Loss/scores: 0.02338
+[train: 50, 50 / 416] FPS: 55.1 (85.1)  ,  Loss/total: 0.02498  ,  Loss/scores: 0.02498
+[train: 50, 100 / 416] FPS: 66.8 (86.8)  ,  Loss/total: 0.02997  ,  Loss/scores: 0.02997
+[train: 50, 100 / 416] FPS: 65.8 (86.4)  ,  Loss/total: 0.02278  ,  Loss/scores: 0.02278
+[train: 50, 150 / 416] FPS: 71.9 (85.4)  ,  Loss/total: 0.02927  ,  Loss/scores: 0.02927
+[train: 50, 150 / 416] FPS: 71.1 (85.3)  ,  Loss/total: 0.02619  ,  Loss/scores: 0.02619
+[train: 50, 200 / 416] FPS: 74.0 (82.2)  ,  Loss/total: 0.02500  ,  Loss/scores: 0.02500
+[train: 50, 200 / 416] FPS: 74.7 (82.5)  ,  Loss/total: 0.02953  ,  Loss/scores: 0.02953
+[train: 50, 250 / 416] FPS: 76.4 (85.7)  ,  Loss/total: 0.02942  ,  Loss/scores: 0.02942
+[train: 50, 250 / 416] FPS: 75.8 (85.6)  ,  Loss/total: 0.02459  ,  Loss/scores: 0.02459
+[train: 50, 300 / 416] FPS: 77.7 (85.7)  ,  Loss/total: 0.02951  ,  Loss/scores: 0.02951
+[train: 50, 300 / 416] FPS: 77.2 (85.6)  ,  Loss/total: 0.02574  ,  Loss/scores: 0.02574
+[train: 50, 350 / 416] FPS: 78.1 (85.9)  ,  Loss/total: 0.02592  ,  Loss/scores: 0.02592
+[train: 50, 350 / 416] FPS: 78.6 (85.7)  ,  Loss/total: 0.02899  ,  Loss/scores: 0.02899
+[train: 50, 400 / 416] FPS: 79.5 (87.7)  ,  Loss/total: 0.02862  ,  Loss/scores: 0.02862
+[train: 50, 400 / 416] FPS: 79.1 (87.6)  ,  Loss/total: 0.02629  ,  Loss/scores: 0.02629
+[train: 50, 416 / 416] FPS: 79.7 (88.0)  ,  Loss/total: 0.02895  ,  Loss/scores: 0.02895
+[train: 50, 416 / 416] FPS: 79.4 (88.0)  ,  Loss/total: 0.02631  ,  Loss/scores: 0.02631
+[val: 50, 50 / 69] FPS: 48.8 (97.2)  ,  Loss/total: 0.04495  ,  Loss/scores: 0.04495
+[val: 50, 50 / 69] FPS: 47.5 (98.6)  ,  Loss/total: 0.05169  ,  Loss/scores: 0.05169
+[val: 50, 69 / 69] FPS: 56.5 (96.9)  ,  Loss/total: 0.03638  ,  Loss/scores: 0.03638
+/home/wenrui/MixFormer/models/mixformer_online/checkpoints/train/mixformer_online/baseline
+[val: 50, 69 / 69] FPS: 55.4 (97.5)  ,  Loss/total: 0.05175  ,  Loss/scores: 0.05175
+Finished training!
+Finished training!
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************

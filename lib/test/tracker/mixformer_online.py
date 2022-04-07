@@ -38,6 +38,7 @@ class MixFormerOnline(BaseTracker):
         if hasattr(self.cfg.TEST.UPDATE_INTERVALS, DATASET_NAME):
             self.update_intervals = self.cfg.TEST.UPDATE_INTERVALS[DATASET_NAME]
             self.online_sizes = self.cfg.TEST.ONLINE_SIZES[DATASET_NAME]
+            #self.online_size = self.online_sizes[0]
         else:
             self.update_intervals = self.cfg.DATA.MAX_SAMPLE_INTERVAL
             self.online_size = 3

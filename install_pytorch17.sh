@@ -4,27 +4,27 @@ conda install -y pytorch==1.7.0 torchvision==0.8.1 cudatoolkit=10.2 -c pytorch
 echo ""
 echo ""
 echo "****************** Installing yaml ******************"
-pip install PyYAML
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install PyYAML -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing easydict ******************"
-pip install easydict
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install easydict -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing cython ******************"
-pip install cython
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install cython -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing opencv-python ******************"
-pip install opencv-python
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing pandas ******************"
-pip install pandas
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install pandas -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
@@ -34,70 +34,70 @@ conda install -y tqdm
 echo ""
 echo ""
 echo "****************** Installing coco toolkit ******************"
-pip install pycocotools
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install pycocotools -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing jpeg4py python wrapper ******************"
-apt-get install libturbojpeg
-pip install jpeg4py
+#apt-get install libturbojpeg
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install jpeg4py -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing tensorboard ******************"
-pip install tb-nightly
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install tb-nightly -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing tikzplotlib ******************"
-pip install tikzplotlib
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install tikzplotlib -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing thop tool for FLOPs and Params computing ******************"
-pip install --upgrade git+https://github.com/Lyken17/pytorch-OpCounter.git
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install --upgrade git+https://github.com/Lyken17/pytorch-OpCounter.git
 
 echo ""
 echo ""
 echo "****************** Installing colorama ******************"
-pip install colorama
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install colorama -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing lmdb ******************"
-pip install lmdb
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install lmdb -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing scipy ******************"
-pip install scipy
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install scipy -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing visdom ******************"
-pip install visdom
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install visdom -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing vot-toolkit python ******************"
-pip install git+https://github.com/votchallenge/vot-toolkit-python
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install git+https://github.com/votchallenge/vot-toolkit-python
 
 echo ""
 echo ""
 echo "****************** Installing onnx and onnxruntime-gpu ******************"
-pip install onnx onnxruntime-gpu==1.6.0
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install onnx onnxruntime-gpu==1.6.0 -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo ""
 echo ""
 echo "****************** Installing timm ******************"
-pip install timm==0.3.2
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install timm==0.3.2 -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo "****************** Installing yacs/einops/thop ******************"
-pip install yacs
-pip install einops
-pip install thop
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install yacs -i https://pypi.tuna.tsinghua.edu.cn/simple
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install einops -i https://pypi.tuna.tsinghua.edu.cn/simple
+/home/wenrui/anaconda3/envs/mixformer/bin/pip install thop -i https://pypi.tuna.tsinghua.edu.cn/simple
 
-echo "****************** Install ninja-build for Precise ROI pooling ******************"
-apt-get install ninja-build
+#echo "****************** Install ninja-build for Precise ROI pooling ******************"
+#apt-get install ninja-build
 
 echo "****************** Installation complete! ******************"

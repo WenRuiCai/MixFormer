@@ -4,3 +4,7 @@
 *.pyc
 *.pytest_cache
 *.csv
+data
+test*
+*.pth.tar
+*.pth
